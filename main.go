@@ -2,7 +2,7 @@ package main
 
 import (
   "fmt"
-  "github.com/kazuhito-m/gcp-cloudbuild-slack-notifier"
+  "github.com/satori/go.uuid"
 )
  
 func main() {
