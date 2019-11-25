@@ -1,3 +1,3 @@
 #!/bin/bash
 
-find . -name '*_test.go' | xargs go test -v
+find . -name '*_test.go' | xargs go test -cover -v
