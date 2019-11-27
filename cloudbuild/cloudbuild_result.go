@@ -1,10 +1,15 @@
 package cloudbuild
 
+import (
+	"encoding/json"
+	"log"
+)
+
 type CluodBuildResult struct {
-	Id        string `json:"id`
-	ProjectId string `json:"projectId`
-	Source    Source `json:"source`
-	Steps     []Step `json:"steps`
+	Id        string `json:"id"`
+	ProjectId string `json:"projectId"`
+	Source    Source `json:"source"`
+	Steps     []Step `json:"steps"`
 }
 
 type Source struct {
@@ -34,4 +39,13 @@ type Step struct {
 	// 	"endTime":" "2019-11-21T06:"02:"48.592274335Z"
 	// },
 	// "status":" "SUCCESS"
+}
+
+func Parse(json_text string) CluodBuildResult {
+	bytes := []byte(json_text)
+	var decode_data CluodBuildResult
+	if err := json.Unmarshal(bytes, &decode_data); err != nil {
+		log.Fatal(err)
+	}
+	return decode_data
 }
