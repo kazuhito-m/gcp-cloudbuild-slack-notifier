@@ -1,3 +1,5 @@
 #!/bin/bash
 
-find . -name '*_test.go' | xargs go test -cover -v
+for i in $(find . -name '*_test.go') ; do
+  go test -cover -v ${i}
+done
