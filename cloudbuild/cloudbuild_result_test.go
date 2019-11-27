@@ -7,10 +7,11 @@ import (
 
 func TestParse(t *testing.T) {
 	parsed := cloudbuild.Parse("{\"id\": \"abcdefg\"}")
-	actual := parsed.Id
-	expected := "abcdefg"
+	assert(parsed.Id, "abcdefg", "JSONのパーズに失敗。", t)
+}
 
-	if actual != expected {
-		t.Error("JSONのパースに失敗。", actual)
+func assert(actual string, expect string, error_message string, t *testing.T) {
+	if actual != expect {
+		t.Error(error_message, "actual:", actual, ",expect:", expect)
 	}
 }
