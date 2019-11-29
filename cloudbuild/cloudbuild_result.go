@@ -1,51 +1,64 @@
 package cloudbuild
 
-import (
-	"encoding/json"
-	"log"
-)
+import "time"
 
 type CluodBuildResult struct {
-	Id        string `json:"id"`
-	ProjectId string `json:"projectId"`
-	Source    Source `json:"source"`
-	Steps     []Step `json:"steps"`
-}
-
-type Source struct {
-	RepoSource RepoSource `json:"repoSource"`
-}
-
-type RepoSource struct {
-	ProjectId  string `json:"projectId"`
-	RepoName   string `json:"repoName"`
-	BranchName string `json:"branchName"`
-}
-
-type Step struct {
-	Name string `json:"name`
-	// "args":" [
-	// 	"-c",
-	// 	"echo 'この日本語が出力されたら成功とする'\n"
-	// ],
-	// "id":" "test-steps-01",
-	// "entrypoint":" "/bin/bash",
-	// "timing":" {
-	// 	"startTime":" "2019-11-21T06:"02:"47.410751454Z",
-	// 	"endTime":" "2019-11-21T06:"02:"49.444260195Z"
-	// },
-	// "pullTiming":" {
-	// 	"startTime":" "2019-11-21T06:"02:"47.410751454Z",
-	// 	"endTime":" "2019-11-21T06:"02:"48.592274335Z"
-	// },
-	// "status":" "SUCCESS"
-}
-
-func Parse(json_text string) CluodBuildResult {
-	bytes := []byte(json_text)
-	var decode_data CluodBuildResult
-	if err := json.Unmarshal(bytes, &decode_data); err != nil {
-		log.Fatal(err)
-	}
-	return decode_data
+	ID        string `json:"id"`
+	ProjectID string `json:"projectId"`
+	Status    string `json:"status"`
+	Source    struct {
+		RepoSource struct {
+			ProjectID  string `json:"projectId"`
+			RepoName   string `json:"repoName"`
+			BranchName string `json:"branchName"`
+		} `json:"repoSource"`
+	} `json:"source"`
+	Steps []struct {
+		Name       string   `json:"name"`
+		Args       []string `json:"args"`
+		ID         string   `json:"id,omitempty"`
+		Entrypoint string   `json:"entrypoint"`
+		Timing     struct {
+			StartTime time.Time `json:"startTime"`
+			EndTime   time.Time `json:"endTime"`
+		} `json:"timing"`
+		PullTiming struct {
+			StartTime time.Time `json:"startTime"`
+			EndTime   time.Time `json:"endTime"`
+		} `json:"pullTiming"`
+		Status  string   `json:"status"`
+		WaitFor []string `json:"waitFor,omitempty"`
+	} `json:"steps"`
+	Results struct {
+		BuildStepImages []string `json:"buildStepImages"`
+	} `json:"results"`
+	CreateTime       time.Time `json:"createTime"`
+	StartTime        time.Time `json:"startTime"`
+	FinishTime       time.Time `json:"finishTime"`
+	Timeout          string    `json:"timeout"`
+	LogsBucket       string    `json:"logsBucket"`
+	SourceProvenance struct {
+		ResolvedRepoSource struct {
+			ProjectID string `json:"projectId"`
+			RepoName  string `json:"repoName"`
+			CommitSha string `json:"commitSha"`
+		} `json:"resolvedRepoSource"`
+	} `json:"sourceProvenance"`
+	BuildTriggerID string `json:"buildTriggerId"`
+	Options        struct {
+		SubstitutionOption string `json:"substitutionOption"`
+		Logging            string `json:"logging"`
+	} `json:"options"`
+	LogURL string   `json:"logUrl"`
+	Tags   []string `json:"tags"`
+	Timing struct {
+		BUILD struct {
+			StartTime time.Time `json:"startTime"`
+			EndTime   time.Time `json:"endTime"`
+		} `json:"BUILD"`
+		FETCHSOURCE struct {
+			StartTime time.Time `json:"startTime"`
+			EndTime   time.Time `json:"endTime"`
+		} `json:"FETCHSOURCE"`
+	} `json:"timing"`
 }
