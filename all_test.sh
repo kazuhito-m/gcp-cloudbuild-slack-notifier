@@ -1,7 +1,6 @@
 #!/bin/bash
 
 for i in $(find . -name '*.go') ; do
-  echo ${i}
   go fmt ${i}
 done
 
