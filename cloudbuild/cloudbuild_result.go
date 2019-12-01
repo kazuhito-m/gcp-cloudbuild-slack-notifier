@@ -62,3 +62,11 @@ type CluodBuildResult struct {
 		} `json:"FETCHSOURCE"`
 	} `json:"timing"`
 }
+
+func (i CluodBuildResult) Ok() bool {
+	return i.Status == "SUCCESS"
+}
+
+func (i CluodBuildResult) Ng() bool {
+	return i.Status == "FAILURE"
+}

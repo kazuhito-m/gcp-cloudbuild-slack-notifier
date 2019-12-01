@@ -5,8 +5,8 @@ import (
 	"log"
 )
 
-func Parse(json_text string) CluodBuildResult {
-	bytes := []byte(json_text)
+func Parse(jsonText string) CluodBuildResult {
+	bytes := []byte(jsonText)
 	var decode_data CluodBuildResult
 	if err := json.Unmarshal(bytes, &decode_data); err != nil {
 		log.Fatal(err)

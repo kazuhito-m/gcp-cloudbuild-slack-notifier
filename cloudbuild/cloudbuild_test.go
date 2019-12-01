@@ -27,6 +27,17 @@ func Test失敗時JSONの内容がParseでオブジェクト化出来る(t *test
 	assertEquals(actual.Status, "FAILURE", "Jsonパーズに失敗,Status", t)
 }
 
+func TestJSONの結果をメソッドで判定出来る(t *testing.T) {
+	actual := cloudbuild.Parse(loadTestJsonText("fail.json"))
+	if !actual.Ng() {
+		t.Error("失敗なのに成功判定になっていた。")
+	}
+	actual2 := cloudbuild.Parse(loadTestJsonText("success.json"))
+	if !actual2.Ok() {
+		t.Error("成功なのに失敗判定になっていた。")
+	}
+}
+
 func assertEquals(actual string, expect string, error_message string, t *testing.T) {
 	t.Helper()
 	if actual != expect {
