@@ -1,0 +1,90 @@
+{
+	"id": "7c91336f-90e1-4efd-aef7-53904ef0ef5f",
+	"projectId": "test-development",
+	"status": "SUCCESS",
+	"source": {
+		"repoSource": {
+			"projectId": "test-development",
+			"repoName": "test.InfraTools",
+			"branchName": "master"
+		}
+	},
+	"steps": [
+		{
+			"name": "ubuntu",
+			"args": [
+				"-c",
+				"echo 'この日本語が出力されたら成功とする'\n"
+			],
+			"id": "test-steps-01",
+			"entrypoint": "/bin/bash",
+			"timing": {
+				"startTime": "2019-11-21T06:02:47.410751454Z",
+				"endTime": "2019-11-21T06:02:49.444260195Z"
+			},
+			"pullTiming": {
+				"startTime": "2019-11-21T06:02:47.410751454Z",
+				"endTime": "2019-11-21T06:02:48.592274335Z"
+			},
+			"status": "SUCCESS"
+		},
+		{
+			"name": "ubuntu",
+			"args": [
+				"-c",
+				"echo 'ステップが2つ目に進む場合、を考えてステップ2つ目を置いときます。'\n"
+			],
+			"id": "test-steps-02",
+			"waitFor": [
+				"test-steps-01"
+			],
+			"entrypoint": "/bin/bash",
+			"timing": {
+				"startTime": "2019-11-21T06:02:49.444328623Z",
+				"endTime": "2019-11-21T06:02:50.308970948Z"
+			},
+			"pullTiming": {
+				"startTime": "2019-11-21T06:02:49.444328623Z",
+				"endTime": "2019-11-21T06:02:49.538171048Z"
+			},
+			"status": "SUCCESS"
+		}
+	],
+	"results": {
+		"buildStepImages": [
+			"",
+			""
+		]
+	},
+	"createTime": "2019-11-21T06:02:41.117927696Z",
+	"startTime": "2019-11-21T06:02:42.250538415Z",
+	"finishTime": "2019-11-21T06:02:51.826504Z",
+	"timeout": "600s",
+	"logsBucket": "gs://681818271322.cloudbuild-logs.googleusercontent.com",
+	"sourceProvenance": {
+		"resolvedRepoSource": {
+			"projectId": "test-development",
+			"repoName": "test.InfraTools",
+			"commitSha": "9d87fc01ff9e94e8a14b961df598a60a9f21f811"
+		}
+	},
+	"buildTriggerId": "946e2920-d6e1-4c39-bb04-a6ec6f89fe46",
+	"options": {
+		"substitutionOption": "ALLOW_LOOSE",
+		"logging": "LEGACY"
+	},
+	"logUrl": "https://console.cloud.google.com/gcr/builds/7c91336f-90e1-4efd-aef7-53904ef0ef5f?project=681818271322",
+	"tags": [
+		"trigger-946e2920-d6e1-4c39-bb04-a6ec6f89fe46"
+	],
+	"timing": {
+		"BUILD": {
+			"startTime": "2019-11-21T06:02:47.410693472Z",
+			"endTime": "2019-11-21T06:02:50.397586675Z"
+		},
+		"FETCHSOURCE": {
+			"startTime": "2019-11-21T06:02:43.886642085Z",
+			"endTime": "2019-11-21T06:02:47.332552095Z"
+		}
+	}
+}

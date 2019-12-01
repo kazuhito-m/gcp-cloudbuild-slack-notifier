@@ -1,0 +1,108 @@
+{
+	"id": "5f917010-9be7-438b-82d9-e90f70a8225d",
+	"projectId": "test-development",
+	"status": "FAILURE",
+	"source": {
+		"repoSource": {
+			"projectId": "test-development",
+			"repoName": "test.InfraTools",
+			"branchName": "master"
+		}
+	},
+	"steps": [
+		{
+			"name": "ubuntu",
+			"args": [
+				"-c",
+				"echo 'この日本語が出力されたら成功とする'\n"
+			],
+			"id": "test-steps-01",
+			"entrypoint": "/bin/bash",
+			"timing": {
+				"startTime": "2019-11-21T06:43:11.505386261Z",
+				"endTime": "2019-11-21T06:43:13.583177667Z"
+			},
+			"pullTiming": {
+				"startTime": "2019-11-21T06:43:11.505386261Z",
+				"endTime": "2019-11-21T06:43:12.718638155Z"
+			},
+			"status": "SUCCESS"
+		},
+		{
+			"name": "ubuntu",
+			"args": [
+				"-c",
+				"echo 'IDが無い場合、どいういうJSONになるかテスト'\n"
+			],
+			"entrypoint": "/bin/bash",
+			"timing": {
+				"startTime": "2019-11-21T06:43:13.583269170Z",
+				"endTime": "2019-11-21T06:43:15.260795572Z"
+			},
+			"pullTiming": {
+				"startTime": "2019-11-21T06:43:13.583269170Z",
+				"endTime": "2019-11-21T06:43:13.722677515Z"
+			},
+			"status": "SUCCESS"
+		},
+		{
+			"name": "ubuntu",
+			"args": [
+				"-c",
+				"ls -l /xx/yyy\n"
+			],
+			"id": "test-steps-02",
+			"waitFor": [
+				"test-steps-01"
+			],
+			"entrypoint": "/bin/bash",
+			"timing": {
+				"startTime": "2019-11-21T06:43:13.606196104Z",
+				"endTime": "2019-11-21T06:43:15.388802171Z"
+			},
+			"pullTiming": {
+				"startTime": "2019-11-21T06:43:13.606196104Z",
+				"endTime": "2019-11-21T06:43:13.742265754Z"
+			},
+			"status": "FAILURE"
+		}
+	],
+	"results": {
+		"buildStepImages": [
+			"",
+			"",
+			""
+		]
+	},
+	"createTime": "2019-11-21T06:43:05.246509760Z",
+	"startTime": "2019-11-21T06:43:06.482283927Z",
+	"finishTime": "2019-11-21T06:43:16.370282828Z",
+	"timeout": "600s",
+	"logsBucket": "gs://681818271322.cloudbuild-logs.googleusercontent.com",
+	"sourceProvenance": {
+		"resolvedRepoSource": {
+			"projectId": "test-development",
+			"repoName": "test.InfraTools",
+			"commitSha": "d0a37b21867ba06c5672985ce6f3d877dca17ffa"
+		}
+	},
+	"buildTriggerId": "946e2920-d6e1-4c39-bb04-a6ec6f89fe46",
+	"options": {
+		"substitutionOption": "ALLOW_LOOSE",
+		"logging": "LEGACY"
+	},
+	"logUrl": "https://console.cloud.google.com/gcr/builds/5f917010-9be7-438b-82d9-e90f70a8225d?project=681818271322",
+	"tags": [
+		"trigger-946e2920-d6e1-4c39-bb04-a6ec6f89fe46"
+	],
+	"timing": {
+		"BUILD": {
+			"startTime": "2019-11-21T06:43:11.505327416Z",
+			"endTime": "2019-11-21T06:43:15.472175529Z"
+		},
+		"FETCHSOURCE": {
+			"startTime": "2019-11-21T06:43:07.539489108Z",
+			"endTime": "2019-11-21T06:43:11.446910434Z"
+		}
+	}
+}
