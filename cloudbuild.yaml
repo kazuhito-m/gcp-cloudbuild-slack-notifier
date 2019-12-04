@@ -1,0 +1,24 @@
+# サンプルのCloudBuild設定ファイル。
+# 「pub/subに書き込む」ことが目的なサンプルで、特に仕事はしていない。
+steps:
+    - name: 'ubuntu'
+      id: 'test-steps-01'
+      entrypoint: /bin/bash
+      args:
+        - -c
+        - |
+          echo 'この日本語が出力されたら成功とする'
+    - name: 'ubuntu'
+      entrypoint: /bin/bash
+      args:
+        - -c
+        - |
+          echo 'IDが無い場合、どいういうJSONになるかテスト'
+    - name: 'ubuntu'
+      id: 'test-steps-02'
+      waitFor: ['test-steps-01']
+      entrypoint: /bin/bashj
+      args:
+        - -c
+        - |
+          ls -l /xx/yyy
