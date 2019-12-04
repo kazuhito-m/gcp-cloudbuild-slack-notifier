@@ -9,11 +9,6 @@ import (
 	"net/http"
 )
 
-func Sample() string {
-	fmt.Printf("testtest\n")
-	return "これを返すことになっている。"
-}
-
 func SendNotify(notify SlackNotify, configure config.Config) bool {
 	jsonBytes, _ := json.Marshal(notify)
 	jsonStr := string(jsonBytes)
@@ -22,7 +17,7 @@ func SendNotify(notify SlackNotify, configure config.Config) bool {
 
 	req, err := http.NewRequest("POST", configure.SlackURL, bytes.NewBuffer([]byte(jsonStr)))
 	if err != nil {
-		log.Println(err)
+		log.Fatalln(err)
 		return false
 	}
 	req.Header.Set("Content-Type", "application/json")
@@ -30,7 +25,7 @@ func SendNotify(notify SlackNotify, configure config.Config) bool {
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		log.Println(err)
+		log.Fatalln(err)
 		return false
 	}
 
