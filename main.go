@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-	"kazuhito-m/gcp-cloudbuild-slack-notifier/config"
-	"log"
-
 	uuid "github.com/satori/go.uuid"
+	"kazuhito-m/gcp-cloudbuild-slack-notifier/config"
+	"kazuhito-m/gcp-cloudbuild-slack-notifier/notify"
+	"kazuhito-m/gcp-cloudbuild-slack-notifier/slack"
+	"log"
 )
 
 func main() {
@@ -16,4 +17,18 @@ func main() {
 		return
 	}
 	log.Println(config.SlackURL)
+
+	notify := notify.CreateNotify()
+
+	result := slack.SendNotify(notify, config)
+
+	log.Println(endInfo(result))
+}
+
+func endInfo(result bool) string {
+	resText := "失敗"
+	if result {
+		resText = "成功"
+	}
+	return "Slack通知が" + resText + "しました。"
 }

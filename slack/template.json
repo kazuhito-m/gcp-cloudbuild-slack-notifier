@@ -1,0 +1,20 @@
+# サンプル。これはプログラムに使っていない
+{
+    "username": "GCP CloudBuild Notification",
+    "icon_url": "https://developers.cyberagent.co.jp/blog/wp-content/uploads/2018/08/Container-Builder.png",
+    "channel": "#hanguottest",
+    "text": "テスト",
+    "mrkdwn": true,
+    "attachments": [
+        {
+            "title": "Build logs",
+            "title_link": "build.logUrl",
+            "fields": [
+                {
+                    "title": "Status",
+                    "value": "build.status"
+                }
+            ]
+        }
+    ]
+}
