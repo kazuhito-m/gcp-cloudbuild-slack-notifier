@@ -24,6 +24,10 @@
 - json-to-go
     - https://mholt.github.io/json-to-go/
 
+## GCP Cloud Pub/SubでGoまわり
+
+- https://qiita.com/shuichiro/items/db2e138dcada8ee97901
+
 ## Slackまわり
 
 ライブラリっぽいのはない。自力でつくるしか…。
@@ -47,7 +51,6 @@
 
 - https://qiita.com/ruiu/items/61236f09b3469a679eb9
     - 三項演算子はない
-
 
 ## その他
 
