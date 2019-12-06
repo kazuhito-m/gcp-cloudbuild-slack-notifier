@@ -45,13 +45,13 @@ func assertEquals(actual string, expect string, error_message string, t *testing
 	}
 }
 
-func loadTestJsonText(fileName string) string {
+func loadTestJsonText(fileName string) []byte {
 	dir, _ := os.Getwd()
 	filePath := dir + "/testdata/" + fileName
 	return loadTestFile(filePath)
 }
 
-func loadTestFile(filePath string) string {
+func loadTestFile(filePath string) []byte {
 	contents, _ := ioutil.ReadFile(filePath)
-	return string(contents)
+	return contents
 }

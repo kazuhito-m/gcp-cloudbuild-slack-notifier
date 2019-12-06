@@ -2,7 +2,7 @@ package cloudbuild
 
 import "time"
 
-type CluodBuildResult struct {
+type CloudBuildResult struct {
 	ID        string `json:"id"`
 	ProjectID string `json:"projectId"`
 	Status    string `json:"status"`
@@ -63,10 +63,10 @@ type CluodBuildResult struct {
 	} `json:"timing"`
 }
 
-func (i CluodBuildResult) Ok() bool {
+func (i CloudBuildResult) Ok() bool {
 	return i.Status == "SUCCESS"
 }
 
-func (i CluodBuildResult) Ng() bool {
+func (i CloudBuildResult) Ng() bool {
 	return i.Status == "FAILURE"
 }

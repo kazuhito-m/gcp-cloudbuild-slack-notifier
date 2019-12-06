@@ -3,7 +3,6 @@ package slack
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"kazuhito-m/gcp-cloudbuild-slack-notifier/config"
 	"log"
 	"net/http"
