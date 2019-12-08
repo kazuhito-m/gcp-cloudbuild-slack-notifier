@@ -1,5 +1,10 @@
 package pubsub
 
+import (
+	"regexp"
+	"strings"
+)
+
 type PubSubMessage struct {
 	Data []byte `json:"data"`
 }
@@ -11,9 +16,18 @@ type Info struct {
 // func (i PubSubMessage) IsCloudBuildMessage() bool {
 // 	messageJson := string(i.Data)
 // 	r := regexp.MustCompile(`"status": ".*"`)
-
 // }
 
 func PickUpStatusText(json string) string {
-	return "FAILURE"
+	r := regexp.MustCompile(`("status"\ *:\ *"[A-Z]+")`)
+	hits := r.FindAllStringSubmatch(json, -1)
+	text := hits[0][0]
+	text = cut(text, `"status"`)
+	text = cut(text, ":")
+	text = cut(text, `"`)
+	return strings.TrimSpace(text)
+}
+
+func cut(target string, word string) string {
+	return strings.Replace(target, word, "", -1)
 }
