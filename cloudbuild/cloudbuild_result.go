@@ -108,12 +108,11 @@ func (i CloudBuildResult) IsStart() bool {
 }
 
 func (i CloudBuildResult) IsEnd() bool {
-	return contains(EndStatuses() , i.Status)
+	return contains(EndStatuses(), i.Status)
 }
 
-
 func contains(list []string, value string) bool {
-	or _, i := range list {
+	for _, i := range list {
 		if i == value {
 			return true
 		}
