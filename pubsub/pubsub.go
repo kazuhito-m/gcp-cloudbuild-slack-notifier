@@ -33,3 +33,7 @@ func PickUpStatusText(json string) string {
 func erase(target string, word string) string {
 	return strings.Replace(target, word, "", -1)
 }
+
+func (i PubSubMessage) DataText() string {
+	return string(i.Data)
+}

@@ -10,10 +10,8 @@ import (
 )
 
 func PubSubHandlerForCloudBuild(ctx context.Context, message pubsub.PubSubMessage) error {
-	text := string(message.Data)
-
 	if !message.IsCloudBuildMessage() {
-		log.Println("CloudBuild以外の通知だったのでスキップしました。:" + text)
+		log.Println("CloudBuild以外の通知だったのでスキップしました。:" + message.DataText())
 		return nil
 	}
 
