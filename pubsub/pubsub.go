@@ -1,6 +1,7 @@
 package pubsub
 
 import (
+	"kazuhito-m/gcp-cloudbuild-slack-notifier/cloudbuild"
 	"regexp"
 	"strings"
 )
@@ -13,10 +14,11 @@ type Info struct {
 	Place string `json:"place"`
 }
 
-// func (i PubSubMessage) IsCloudBuildMessage() bool {
-// 	messageJson := string(i.Data)
-// 	r := regexp.MustCompile(`"status": ".*"`)
-// }
+func (i PubSubMessage) IsCloudBuildMessage() bool {
+	messageJson := string(i.Data)
+	statusText := PickUpStatusText(messageJson)
+	return cloudbuild.InCloudBuildStatus(statusText)
+}
 
 func PickUpStatusText(json string) string {
 	r := regexp.MustCompile(`("status"\ *:\ *"[A-Z]+")`)

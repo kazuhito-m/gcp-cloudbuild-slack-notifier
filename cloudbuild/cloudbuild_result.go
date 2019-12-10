@@ -2,6 +2,34 @@ package cloudbuild
 
 import "time"
 
+const STATUS_SUCCESS = "SUCCESS"
+const STATUS_FAILURE = "FAILURE"
+const STATUS_INTERNAL_ERROR = "INTERNAL_ERROR"
+const STATUS_TIMEOUT = "TIMEOUT"
+
+const STATUS_QUEUED = "QUEUED"
+const STATUS_WORKING = "WORKING"
+
+func Statuses() []string {
+	return []string{
+		STATUS_SUCCESS,
+		STATUS_FAILURE,
+		STATUS_INTERNAL_ERROR,
+		STATUS_TIMEOUT,
+		STATUS_QUEUED,
+		STATUS_WORKING,
+	}
+}
+
+func InCloudBuildStatus(status string) bool {
+	for _, i := range Statuses() {
+		if i == status {
+			return true
+		}
+	}
+	return false
+}
+
 type CloudBuildResult struct {
 	ID        string `json:"id"`
 	ProjectID string `json:"projectId"`
