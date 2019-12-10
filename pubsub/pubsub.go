@@ -20,6 +20,10 @@ func (i PubSubMessage) IsCloudBuildMessage() bool {
 	return cloudbuild.InCloudBuildStatus(statusText)
 }
 
+func (i PubSubMessage) ToCloudBuildResult() cloudbuild.CloudBuildResult {
+	return cloudbuild.Parse(i.Data)
+}
+
 func PickUpStatusText(json string) string {
 	r := regexp.MustCompile(`("status"\ *:\ *"[A-Z]+")`)
 	hits := r.FindAllStringSubmatch(json, -1)

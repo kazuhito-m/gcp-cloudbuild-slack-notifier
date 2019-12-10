@@ -1,15 +1,16 @@
 package notify
 
 import (
+	"kazuhito-m/gcp-cloudbuild-slack-notifier/cloudbuild"
 	"kazuhito-m/gcp-cloudbuild-slack-notifier/slack"
 )
 
-func CreateNotify() slack.SlackNotify {
+func CreateNotify(cloudBuildResult cloudbuild.CloudBuildResult) slack.SlackNotify {
 	slackNotify := slack.SlackNotify{}
 
 	field := slack.SlackField{
-		Title: "タイトルのテスト",
-		Value: "Valueのテスト",
+		Title: "Status",
+		Value: cloudBuildResult.Status,
 	}
 
 	attachement := slack.Attachment{

@@ -22,7 +22,7 @@ func PubSubHandlerForCloudBuild(ctx context.Context, message pubsub.PubSubMessag
 	}
 	log.Println(config.SlackURL)
 
-	notify := notify.CreateNotify()
+	notify := notify.CreateNotify(message.ToCloudBuildResult())
 
 	result := slack.SendNotify(notify, config)
 
