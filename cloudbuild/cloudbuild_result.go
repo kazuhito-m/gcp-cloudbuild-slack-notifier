@@ -21,13 +21,17 @@ func Statuses() []string {
 	}
 }
 
-func InCloudBuildStatus(status string) bool {
-	for _, i := range Statuses() {
-		if i == status {
-			return true
-		}
+func EndStatuses() []string {
+	return []string{
+		STATUS_SUCCESS,
+		STATUS_FAILURE,
+		STATUS_INTERNAL_ERROR,
+		STATUS_TIMEOUT,
 	}
-	return false
+}
+
+func InCloudBuildStatus(status string) bool {
+	return contains(Statuses(), status)
 }
 
 type CloudBuildResult struct {
@@ -92,9 +96,27 @@ type CloudBuildResult struct {
 }
 
 func (i CloudBuildResult) Ok() bool {
-	return i.Status == "SUCCESS"
+	return i.Status == STATUS_SUCCESS
 }
 
 func (i CloudBuildResult) Ng() bool {
-	return i.Status == "FAILURE"
+	return !i.Ok()
+}
+
+func (i CloudBuildResult) IsStart() bool {
+	return i.Status == STATUS_WORKING
+}
+
+func (i CloudBuildResult) IsEnd() bool {
+	return contains(EndStatuses() , i.Status)
+}
+
+
+func contains(list []string, value string) bool {
+	or _, i := range list {
+		if i == value {
+			return true
+		}
+	}
+	return false
 }

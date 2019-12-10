@@ -14,6 +14,11 @@ func PubSubHandlerForCloudBuild(ctx context.Context, message pubsub.PubSubMessag
 		log.Println("CloudBuild以外の通知だったのでスキップしました。:" + message.DataText())
 		return nil
 	}
+	result := message.ToCloudBuildResult()
+	if !result.IsStart() && !result.IsEnd() {
+		log.Println("CloudBuildの開始・終了通知ではなかったためスキップしました。:" + message.DataText())
+		return nil
+	}
 
 	config, ok := config.Load()
 	if !ok {
@@ -22,11 +27,11 @@ func PubSubHandlerForCloudBuild(ctx context.Context, message pubsub.PubSubMessag
 	}
 	log.Println(config.SlackURL)
 
-	notify := notify.CreateNotify(message.ToCloudBuildResult())
+	notify := notify.CreateNotify(result)
 
-	result := slack.SendNotify(notify, config)
+	okOrNg := slack.SendNotify(notify, config)
 
-	log.Println(endInfo(result))
+	log.Println(endInfo(okOrNg))
 
 	return nil
 }
