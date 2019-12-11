@@ -144,6 +144,10 @@ func (i CloudBuildResult) TriggerConsoleUrl() string {
 	return "https://console.cloud.google.com/cloud-build/triggers/edit/" + i.BuildTriggerID + "?project=" + i.ProjectID
 }
 
+func (i CloudBuildResult) TotalTime() string {
+	return "TODO 実装"
+}
+
 func contains(list []string, value string) bool {
 	for _, i := range list {
 		if i == value {
