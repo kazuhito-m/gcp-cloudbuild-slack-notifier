@@ -1,0 +1,24 @@
+# サンプルのCloudBuild設定ファイル。
+# 2つ目を作った時「どこが一意になるか」をかくにんするためにある
+steps:
+    - name: 'ubuntu'
+      id: 'test-steps-01'
+      entrypoint: /bin/bash
+      args:
+        - -c
+        - |
+          echo '2つ目のCloudBuildのやつ。'
+    - name: 'ubuntu'
+      entrypoint: /bin/bash
+      args:
+        - -c
+        - |
+          echo 'IDが無い場合、どいういうJSONになるかテスト'
+    - name: 'ubuntu'
+      id: 'test-steps-02'
+      waitFor: ['test-steps-01']
+      entrypoint: /bin/bashj
+      args:
+        - -c
+        - |
+          ls -l /
