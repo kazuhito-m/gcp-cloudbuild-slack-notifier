@@ -6,18 +6,18 @@ import (
 	"kazuhito-m/gcp-cloudbuild-slack-notifier/slack"
 )
 
-func CreateNotify(result cloudbuild.CloudBuildResult, configure config.Config) (slack.SlackNotify, bool) {
+func CreateNotify(result cloudbuild.CloudBuildResult, conf config.Config) (slack.SlackNotify, bool) {
 	if result.IsStart() {
-		return createStartNotify(result, configure), true
+		return createStartNotify(result, conf), true
 	}
 	if result.IsEnd() {
-		return createEndNotify(result, configure), true
+		return createEndNotify(result, conf), true
 	}
 	return slack.SlackNotify{}, false
 }
 
-func createStartNotify(result cloudbuild.CloudBuildResult, configure config.Config) slack.SlackNotify {
-	slackNotify := createBaseNotify(result, configure)
+func createStartNotify(result cloudbuild.CloudBuildResult, conf config.Config) slack.SlackNotify {
+	slackNotify := createBaseNotify(result, conf)
 
 	field := slack.SlackField{
 		Title: "Status",
@@ -35,8 +35,8 @@ func createStartNotify(result cloudbuild.CloudBuildResult, configure config.Conf
 
 	return slackNotify
 }
-func createEndNotify(result cloudbuild.CloudBuildResult, configure config.Config) slack.SlackNotify {
-	slackNotify := createBaseNotify(result, configure)
+func createEndNotify(result cloudbuild.CloudBuildResult, conf config.Config) slack.SlackNotify {
+	slackNotify := createBaseNotify(result, conf)
 
 	field := slack.SlackField{
 		Title: "Status",
@@ -63,12 +63,12 @@ func makeResultText(result cloudbuild.CloudBuildResult) string {
 	return "CloudBuildの実行が" + resText + "しました。"
 }
 
-func createBaseNotify(result cloudbuild.CloudBuildResult, configure config.Config) slack.SlackNotify {
+func createBaseNotify(result cloudbuild.CloudBuildResult, conf config.Config) slack.SlackNotify {
 	slackNotify := slack.SlackNotify{}
 
 	slackNotify.Username = "GCP CloudBuild Notification"
 	slackNotify.IconURL = "https://developers.cyberagent.co.jp/blog/wp-content/uploads/2018/08/Container-Builder.png"
-	slackNotify.Channel = configure.SlackChannel
+	slackNotify.Channel = conf.SlackChannel
 	slackNotify.Mrkdwn = true
 
 	return slackNotify
