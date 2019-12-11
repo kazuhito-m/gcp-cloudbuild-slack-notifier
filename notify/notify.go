@@ -29,7 +29,7 @@ func createStartNotify(result cloudbuild.CloudBuildResult, conf config.Config) s
 	attachement := slack.Attachment{
 		Title:     "タイトル",
 		TitleLink: "https://google.com",
-		Color:     "blue",
+		Color:     "#24A0ED",
 		Fields:    fields,
 	}
 
