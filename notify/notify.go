@@ -19,28 +19,7 @@ func CreateNotify(result cloudbuild.CloudBuildResult, conf config.Config) (slack
 func createStartNotify(result cloudbuild.CloudBuildResult, conf config.Config) slack.SlackNotify {
 	slackNotify := createBaseNotify(result, conf)
 
-	fields := []slack.SlackField{
-		slack.SlackField{
-			Title: "Build ID",
-			Value: "<" + result.BuildConsoleUrl() + "|" + result.ID + ">",
-			Short: true,
-		},
-		slack.SlackField{
-			Title: "Trigger ID",
-			Value: "<" + result.TriggerConsoleUrl() + "|" + result.BuildTriggerID + ">",
-			Short: true,
-		},
-		slack.SlackField{
-			Title: "Project ID",
-			Value: result.ProjectID,
-			Short: true,
-		},
-		slack.SlackField{
-			Title: "Source Repository/Branch Name",
-			Value: result.RepositoryName() + "/" + result.BranchName(),
-			Short: true,
-		},
-	}
+	fields := createBaseInfoFields(result)
 
 	attachement := slack.Attachment{
 		Title:     makeAttachmentTitle(result),
@@ -56,16 +35,13 @@ func createStartNotify(result cloudbuild.CloudBuildResult, conf config.Config) s
 func createEndNotify(result cloudbuild.CloudBuildResult, conf config.Config) slack.SlackNotify {
 	slackNotify := createBaseNotify(result, conf)
 
-	field := slack.SlackField{
-		Title: "Status",
-		Value: result.Status,
-	}
+	fields := createBaseInfoFields(result)
 
 	attachement := slack.Attachment{
 		Title:     makeAttachmentTitle(result),
 		TitleLink: result.BuildConsoleUrl(),
 		Color:     resultColorOf(result),
-		Fields:    []slack.SlackField{field},
+		Fields:    fields,
 	}
 
 	slackNotify.Text = makeResultText(result)
@@ -102,4 +78,21 @@ func createBaseNotify(result cloudbuild.CloudBuildResult, conf config.Config) sl
 	slackNotify.Mrkdwn = true
 
 	return slackNotify
+}
+
+func createBaseInfoFields(result cloudbuild.CloudBuildResult) []slack.SlackField {
+	return []slack.SlackField{
+		fieldOf("Build ID", "<"+result.BuildConsoleUrl()+"|"+result.ID+">"),
+		fieldOf("Trigger ID", "<"+result.TriggerConsoleUrl()+"|"+result.BuildTriggerID+">"),
+		fieldOf("Project ID", result.ProjectID),
+		fieldOf("Source Repository/Branch Name", result.RepositoryName()+"/"+result.BranchName()),
+	}
+}
+
+func fieldOf(title string, value string) slack.SlackField {
+	return slack.SlackField{
+		Title: title,
+		Value: value,
+		Short: true,
+	}
 }
