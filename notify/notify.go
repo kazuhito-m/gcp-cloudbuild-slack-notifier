@@ -66,7 +66,7 @@ func makeResultText(result cloudbuild.CloudBuildResult) string {
 }
 
 func makeAttachmentTitle(result cloudbuild.CloudBuildResult) string {
-	return result.RepositoryName() + " のビルド(" + result.BuildTriggerID + ")"
+	return result.RepositoryName() + " のビルド"
 }
 
 func createBaseNotify(result cloudbuild.CloudBuildResult, conf config.Config) slack.SlackNotify {
