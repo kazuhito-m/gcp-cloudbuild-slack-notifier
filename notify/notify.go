@@ -36,7 +36,7 @@ func createEndNotify(result cloudbuild.CloudBuildResult, conf config.Config) sla
 	slackNotify := createBaseNotify(result, conf)
 
 	fields := []slack.SlackField{
-		fieldOf("Status", "*"+result.Status+"*"),
+		fieldOf("Status", "`"+result.Status+"`"),
 		fieldOf("Total Time", result.TotalTime()),
 	}
 	fields = append(fields, createBaseInfoFields(result)...)
