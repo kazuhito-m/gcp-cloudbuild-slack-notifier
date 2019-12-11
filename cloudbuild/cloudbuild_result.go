@@ -81,7 +81,14 @@ type CloudBuildResult struct {
 		SubstitutionOption string `json:"substitutionOption"`
 		Logging            string `json:"logging"`
 	} `json:"options"`
-	LogURL string   `json:"logUrl"`
+	LogURL        string `json:"logUrl"`
+	Substitutions struct {
+		BRANCHNAME string `json:"BRANCH_NAME"`
+		COMMITSHA  string `json:"COMMIT_SHA"`
+		REPONAME   string `json:"REPO_NAME"`
+		REVISIONID string `json:"REVISION_ID"`
+		SHORTSHA   string `json:"SHORT_SHA"`
+	} `json:"substitutions"`
 	Tags   []string `json:"tags"`
 	Timing struct {
 		BUILD struct {
