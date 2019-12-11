@@ -24,6 +24,10 @@ func createStartNotify(result cloudbuild.CloudBuildResult, conf config.Config) s
 			Title: "Build ID",
 			Value: "[" + result.ID + "](" + result.BuildConsoleUrl() + ")",
 		},
+		slack.SlackField{
+			Title: "Trigger ID",
+			Value: "[" + result.BuildTriggerID + "](" + result.BuildConsoleUrl() + ")",
+		},
 	}
 
 	attachement := slack.Attachment{

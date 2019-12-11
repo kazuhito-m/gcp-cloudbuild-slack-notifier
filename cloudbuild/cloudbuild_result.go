@@ -133,6 +133,10 @@ func (i CloudBuildResult) BuildConsoleUrl() string {
 	return "https://console.cloud.google.com/cloud-build/builds/" + i.ID + "?project=" + i.ProjectID
 }
 
+func (i CloudBuildResult) TriggerConsoleUrl() string {
+	return "https://console.cloud.google.com/cloud-build/triggers/edit/" + i.BuildTriggerID + "?project=" + i.ProjectID
+}
+
 func contains(list []string, value string) bool {
 	for _, i := range list {
 		if i == value {
