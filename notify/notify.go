@@ -23,22 +23,22 @@ func createStartNotify(result cloudbuild.CloudBuildResult, conf config.Config) s
 		slack.SlackField{
 			Title: "Build ID",
 			Value: "<" + result.BuildConsoleUrl() + "|" + result.ID + ">",
+			Short: true,
 		},
 		slack.SlackField{
 			Title: "Trigger ID",
 			Value: "<" + result.TriggerConsoleUrl() + "|" + result.BuildTriggerID + ">",
+			Short: true,
 		},
 		slack.SlackField{
 			Title: "Project ID",
 			Value: result.ProjectID,
+			Short: true,
 		},
 		slack.SlackField{
-			Title: "Source Repository Name",
-			Value: result.RepositoryName(),
-		},
-		slack.SlackField{
-			Title: "Source Branch Name",
-			Value: result.BranchName(),
+			Title: "Source Repository/Branch Name",
+			Value: result.RepositoryName() + "/" + result.BranchName(),
+			Short: true,
 		},
 	}
 

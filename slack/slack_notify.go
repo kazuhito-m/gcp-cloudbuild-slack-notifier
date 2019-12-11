@@ -19,4 +19,5 @@ type Attachment struct {
 type SlackField struct {
 	Title string `json:"title"`
 	Value string `json:"value"`
+	Short bool   `json:"short"`
 }
