@@ -11,12 +11,12 @@ import (
 
 func PubSubHandlerForCloudBuild(ctx context.Context, message pubsub.PubSubMessage) error {
 	if !message.IsCloudBuildMessage() {
-		log.Println("CloudBuild以外の通知だったのでスキップしました。:" + message.DataText())
+		// log.Println("CloudBuild以外の通知だったのでスキップしました。:" + message.DataText())
 		return nil
 	}
 	result := message.ToCloudBuildResult()
 	if !result.IsStart() && !result.IsEnd() {
-		log.Println("CloudBuildの開始・終了通知ではなかったためスキップしました。:" + message.DataText())
+		// log.Println("CloudBuildの開始・終了通知ではなかったためスキップしました。:" + message.DataText())
 		return nil
 	}
 
@@ -25,7 +25,8 @@ func PubSubHandlerForCloudBuild(ctx context.Context, message pubsub.PubSubMessag
 		log.Fatalln("環境変数から設定が取得できませんでした。終了します。")
 		return nil
 	}
-	log.Println(config.SlackURL)
+
+	log.Println("Slack通知用CloudFunction開始。CloudBuild結果データ:" + message.DataText())
 
 	notify := notify.CreateNotify(result)
 
