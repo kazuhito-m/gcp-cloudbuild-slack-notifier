@@ -28,7 +28,11 @@ func PubSubHandlerForCloudBuild(ctx context.Context, message pubsub.PubSubMessag
 
 	log.Println("Slack通知用CloudFunction開始。CloudBuild結果データ:" + message.DataText())
 
-	notify := notify.CreateNotify(result)
+	notify, ok := notify.CreateNotify(result)
+	if !ok {
+		log.Fatalln("Slack通知の作成に失敗しました。終了します。")
+		return nil
+	}
 
 	okOrNg := slack.SendNotify(notify, config)
 
