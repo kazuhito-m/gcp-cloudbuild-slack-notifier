@@ -145,7 +145,8 @@ func (i CloudBuildResult) TriggerConsoleUrl() string {
 }
 
 func (i CloudBuildResult) TotalTime() string {
-	return "TODO 実装"
+	duratin := i.FinishTime.Sub(i.StartTime)
+	return duratin.String()
 }
 
 func contains(list []string, value string) bool {
