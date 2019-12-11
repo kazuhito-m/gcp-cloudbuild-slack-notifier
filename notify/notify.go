@@ -36,10 +36,10 @@ func createEndNotify(result cloudbuild.CloudBuildResult, conf config.Config) sla
 	slackNotify := createBaseNotify(result, conf)
 
 	fields := []slack.SlackField{
-		fieldOf("Status", result.Status),
+		fieldOf("Status", "*"+result.Status+"*"),
 		fieldOf("Total Time", result.TotalTime()),
 	}
-	fields = append(createBaseInfoFields(result), fields...)
+	fields = append(fields, createBaseInfoFields(result)...)
 
 	attachement := slack.Attachment{
 		Title:     makeAttachmentTitle(result),
