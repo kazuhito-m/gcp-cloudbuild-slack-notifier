@@ -41,6 +41,7 @@ func createStartNotify(result cloudbuild.CloudBuildResult, conf config.Config) s
 	attachement := slack.Attachment{
 		Title:     makeAttachmentTitle(result),
 		TitleLink: result.BuildConsoleUrl(),
+		Fields:    []slack.AttachmentField{},
 		Blocks:    []slack.Block{block},
 	}
 
