@@ -19,15 +19,18 @@ func CreateNotify(result cloudbuild.CloudBuildResult, conf config.Config) (slack
 func createStartNotify(result cloudbuild.CloudBuildResult, conf config.Config) slack.SlackNotify {
 	slackNotify := createBaseNotify(result, conf)
 
-	field := slack.SlackField{
-		Title: "Status",
-		Value: result.Status,
+	fields := []slack.SlackField{
+		slack.SlackField{
+			Title: "Status",
+			Value: result.Status,
+		},
 	}
 
 	attachement := slack.Attachment{
 		Title:     "タイトル",
 		TitleLink: "https://google.com",
-		Fields:    []slack.SlackField{field},
+		Color:     "blue",
+		Fields:    fields,
 	}
 
 	slackNotify.Text = "CloudBuildの実行を開始しました。"
@@ -46,6 +49,7 @@ func createEndNotify(result cloudbuild.CloudBuildResult, conf config.Config) sla
 	attachement := slack.Attachment{
 		Title:     "タイトル",
 		TitleLink: "https://google.com",
+		Color:     resultColorOf(result),
 		Fields:    []slack.SlackField{field},
 	}
 
@@ -53,6 +57,13 @@ func createEndNotify(result cloudbuild.CloudBuildResult, conf config.Config) sla
 	slackNotify.Attachments = []slack.Attachment{attachement}
 
 	return slackNotify
+}
+
+func resultColorOf(result cloudbuild.CloudBuildResult) string {
+	if result.Ok() {
+		return "good"
+	}
+	return "danger"
 }
 
 func makeResultText(result cloudbuild.CloudBuildResult) string {

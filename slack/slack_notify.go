@@ -12,6 +12,7 @@ type SlackNotify struct {
 type Attachment struct {
 	Title     string       `json:"title"`
 	TitleLink string       `json:"title_link"`
+	Color     string       `json:"color"`
 	Fields    []SlackField `json:"fields"`
 }
 
