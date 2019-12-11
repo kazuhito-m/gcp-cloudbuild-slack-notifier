@@ -28,6 +28,18 @@ func createStartNotify(result cloudbuild.CloudBuildResult, conf config.Config) s
 			Title: "Trigger ID",
 			Value: "<" + result.TriggerConsoleUrl() + "|" + result.BuildTriggerID + ">",
 		},
+		slack.SlackField{
+			Title: "Project ID",
+			Value: result.ProjectID,
+		},
+		slack.SlackField{
+			Title: "Source Repository Name",
+			Value: result.RepositoryName(),
+		},
+		slack.SlackField{
+			Title: "Source Branch Name",
+			Value: result.BranchName(),
+		},
 	}
 
 	attachement := slack.Attachment{

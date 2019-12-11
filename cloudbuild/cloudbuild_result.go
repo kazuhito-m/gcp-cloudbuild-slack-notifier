@@ -129,6 +129,13 @@ func (i CloudBuildResult) RepositoryName() string {
 	return i.Source.RepoSource.RepoName
 }
 
+func (i CloudBuildResult) BranchName() string {
+	if i.UseOutsideSouceRepository() {
+		return i.Substitutions.BRANCHNAME
+	}
+	return i.Source.RepoSource.BranchName
+}
+
 func (i CloudBuildResult) BuildConsoleUrl() string {
 	return "https://console.cloud.google.com/cloud-build/builds/" + i.ID + "?project=" + i.ProjectID
 }
