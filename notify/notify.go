@@ -22,11 +22,11 @@ func createStartNotify(result cloudbuild.CloudBuildResult, conf config.Config) s
 	fields := []slack.SlackField{
 		slack.SlackField{
 			Title: "Build ID",
-			Value: "[" + result.ID + "](" + result.BuildConsoleUrl() + ")",
+			Value: "<" + result.BuildConsoleUrl() + "|" + result.ID + ">",
 		},
 		slack.SlackField{
 			Title: "Trigger ID",
-			Value: "[" + result.BuildTriggerID + "](" + result.BuildConsoleUrl() + ")",
+			Value: "<" + result.TriggerConsoleUrl() + "|" + result.BuildTriggerID + ">",
 		},
 	}
 
