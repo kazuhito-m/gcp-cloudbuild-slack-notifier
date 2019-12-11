@@ -19,21 +19,29 @@ func CreateNotify(result cloudbuild.CloudBuildResult, conf config.Config) (slack
 func createStartNotify(result cloudbuild.CloudBuildResult, conf config.Config) slack.SlackNotify {
 	slackNotify := createBaseNotify(result, conf)
 
-	fields := []slack.SlackField{
-		slack.SlackField{
-			Title: "Build ID",
-			Value: "[" + result.ID + "](" + result.BuildConsoleUrl() + ")",
-		},
-		slack.SlackField{
-			Title: "Trigger ID",
-			Value: "[" + result.BuildTriggerID + "](" + result.BuildConsoleUrl() + ")",
+	// fields := []slack.AttachmentField{
+	// 	slack.AttachmentField{
+	// 		Title: "Build ID",
+	// 		Value: "[" + result.ID + "](" + result.BuildConsoleUrl() + ")",
+	// 	},
+	// 	slack.AttachmentField{
+	// 		Title: "Trigger ID",
+	// 		Value: "[" + result.BuildTriggerID + "](" + result.TriggerConsoleUrl() + ")",
+	// 	},
+	// }
+
+	block := slack.Block{
+		Type: "context",
+		Text: slack.BlockText{
+			Type: "mrkdwn",
+			Text: "ココは __markdown__ で書ける",
 		},
 	}
 
 	attachement := slack.Attachment{
 		Title:     makeAttachmentTitle(result),
 		TitleLink: result.BuildConsoleUrl(),
-		Fields:    fields,
+		Blocks:    []slack.Block{block},
 	}
 
 	slackNotify.Text = "CloudBuildの実行を開始しました。"
@@ -44,7 +52,7 @@ func createStartNotify(result cloudbuild.CloudBuildResult, conf config.Config) s
 func createEndNotify(result cloudbuild.CloudBuildResult, conf config.Config) slack.SlackNotify {
 	slackNotify := createBaseNotify(result, conf)
 
-	field := slack.SlackField{
+	field := slack.AttachmentField{
 		Title: "Status",
 		Value: result.Status,
 	}
@@ -53,7 +61,7 @@ func createEndNotify(result cloudbuild.CloudBuildResult, conf config.Config) sla
 		Title:     makeAttachmentTitle(result),
 		TitleLink: result.BuildConsoleUrl(),
 		Color:     resultColorOf(result),
-		Fields:    []slack.SlackField{field},
+		Fields:    []slack.AttachmentField{field},
 	}
 
 	slackNotify.Text = makeResultText(result)
