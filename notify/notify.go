@@ -27,9 +27,8 @@ func createStartNotify(result cloudbuild.CloudBuildResult, conf config.Config) s
 	}
 
 	attachement := slack.Attachment{
-		Title:     "タイトル",
-		TitleLink: "https://google.com",
-		Color:     "#24A0ED",
+		Title:     makeAttachmentTitle(result),
+		TitleLink: makeAttachmentUrl(result),
 		Fields:    fields,
 	}
 
@@ -47,8 +46,8 @@ func createEndNotify(result cloudbuild.CloudBuildResult, conf config.Config) sla
 	}
 
 	attachement := slack.Attachment{
-		Title:     "タイトル",
-		TitleLink: "https://google.com",
+		Title:     makeAttachmentTitle(result),
+		TitleLink: makeAttachmentUrl(result),
 		Color:     resultColorOf(result),
 		Fields:    []slack.SlackField{field},
 	}
@@ -72,6 +71,14 @@ func makeResultText(result cloudbuild.CloudBuildResult) string {
 		resText = "失敗"
 	}
 	return "CloudBuildの実行が" + resText + "しました。"
+}
+
+func makeAttachmentTitle(result cloudbuild.CloudBuildResult) string {
+	return result.RepositoryName() + " のビルド(" + result.BuildTriggerID + ")"
+}
+
+func makeAttachmentUrl(result cloudbuild.CloudBuildResult) string {
+	return "https://console.cloud.google.com/cloud-build/builds/" + result.ID + "?project=" + result.ProjectID
 }
 
 func createBaseNotify(result cloudbuild.CloudBuildResult, conf config.Config) slack.SlackNotify {

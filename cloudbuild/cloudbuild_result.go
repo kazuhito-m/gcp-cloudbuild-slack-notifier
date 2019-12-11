@@ -118,6 +118,17 @@ func (i CloudBuildResult) IsEnd() bool {
 	return contains(EndStatuses(), i.Status)
 }
 
+func (i CloudBuildResult) UseOutsideSouceRepository() bool {
+	return i.Source.RepoSource.RepoName == "" && i.Substitutions.REPONAME != ""
+}
+
+func (i CloudBuildResult) RepositoryName() string {
+	if i.UseOutsideSouceRepository() {
+		return i.Substitutions.REPONAME
+	}
+	return i.Source.RepoSource.RepoName
+}
+
 func contains(list []string, value string) bool {
 	for _, i := range list {
 		if i == value {

@@ -1,0 +1,106 @@
+{
+	"id": "949613ed-fdd0-4f10-a8c8-61a62f369e59",
+	"projectId": "uts-test-0004",
+	"status": "FAILURE",
+	"source": {
+		"repoSource": {
+			"projectId": "uts-test-0004",
+			"repoName": "HotStaff.Environment.Develop",
+			"branchName": "master"
+		}
+	},
+	"steps": [
+		{
+			"name": "gcr.io/cloud-builders/kubectl",
+			"env": [
+				"CLOUDSDK_COMPUTE_ZONE=asia-northeast1-a",
+				"CLOUDSDK_CONTAINER_CLUSTER=hs-gke-cluster"
+			],
+			"args": [
+				"apply",
+				"-f",
+				"./application.yaml",
+				"--dry-run=true"
+			],
+			"id": "check-format-and-dry-run",
+			"timing": {
+				"startTime": "2019-12-11T16:47:00.844206843Z",
+				"endTime": "2019-12-11T16:47:04.908803396Z"
+			},
+			"pullTiming": {
+				"startTime": "2019-12-11T16:47:00.844206843Z",
+				"endTime": "2019-12-11T16:47:00.926687586Z"
+			},
+			"status": "FAILURE"
+		},
+		{
+			"name": "gcr.io/cloud-builders/kubectl",
+			"env": [
+				"CLOUDSDK_COMPUTE_ZONE=asia-northeast1-a",
+				"CLOUDSDK_CONTAINER_CLUSTER=hs-gke-cluster"
+			],
+			"args": [
+				"-c",
+				"/builder/kubectl.bash delete job/hss1-migration-job || echo 'マイグレーションジョブが無いため、削除はスキップします。'\n"
+			],
+			"id": "delete-last-migration-pods",
+			"entrypoint": "/bin/bash",
+			"status": "QUEUED"
+		},
+		{
+			"name": "gcr.io/cloud-builders/kubectl",
+			"env": [
+				"CLOUDSDK_COMPUTE_ZONE=asia-northeast1-a",
+				"CLOUDSDK_CONTAINER_CLUSTER=hs-gke-cluster"
+			],
+			"args": [
+				"apply",
+				"-f",
+				"./application.yaml"
+			],
+			"id": "deploy",
+			"status": "QUEUED"
+		}
+	],
+	"results": {
+		"buildStepImages": [
+			"sha256:536d996811e8749c75c751f3d1eb776121918f30d466cc6017170d4b37641ca2",
+			"",
+			""
+		]
+	},
+	"createTime": "2019-12-11T16:46:53.698720101Z",
+	"startTime": "2019-12-11T16:46:55.098362886Z",
+	"finishTime": "2019-12-11T16:47:06.205401960Z",
+	"timeout": "600s",
+	"logsBucket": "gs://681109378253.cloudbuild-logs.googleusercontent.com",
+	"sourceProvenance": {
+		"resolvedRepoSource": {
+			"projectId": "uts-test-0004",
+			"repoName": "HotStaff.Environment.Develop",
+			"commitSha": "d73d886a242cdc7493cd4ef039c860cdc5657332"
+		}
+	},
+	"buildTriggerId": "3b54d03c-db61-42be-9fe3-43ad17368411",
+	"options": {
+		"substitutionOption": "ALLOW_LOOSE",
+		"logging": "LEGACY"
+	},
+	"logUrl": "https://console.cloud.google.com/gcr/builds/949613ed-fdd0-4f10-a8c8-61a62f369e59?project=681109378253",
+	"substitutions": {
+		"_MANUFEST_YAML": "./application.yaml"
+	},
+	"tags": [
+		"trigger-3b54d03c-db61-42be-9fe3-43ad17368411"
+	],
+	"timing": {
+		"BUILD": {
+			"startTime": "2019-12-11T16:47:00.844133646Z",
+			"endTime": "2019-12-11T16:47:04.994769195Z"
+		},
+		"FETCHSOURCE": {
+			"startTime": "2019-12-11T16:46:56.231915355Z",
+			"endTime": "2019-12-11T16:47:00.766232623Z"
+		}
+	}
+}
