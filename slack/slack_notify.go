@@ -24,15 +24,10 @@ type AttachmentField struct {
 }
 
 type Block struct {
-	Type      string    `json:"type"`
-	Text      BlockText `json:"text,omitempty"`
-	BlockID   string    `json:"block_id,omitempty"`
-	Accessory struct {
-		Type     string `json:"type"`
-		ImageURL string `json:"image_url"`
-		AltText  string `json:"alt_text"`
-	} `json:"accessory,omitempty"`
-	Fields []BlockField `json:"fields,omitempty"`
+	Type    string       `json:"type"`
+	Text    BlockText    `json:"text,omitempty"`
+	BlockID string       `json:"block_id,omitempty"`
+	Fields  []BlockField `json:"fields,omitempty"`
 }
 
 type BlockField struct {
