@@ -129,6 +129,10 @@ func (i CloudBuildResult) RepositoryName() string {
 	return i.Source.RepoSource.RepoName
 }
 
+func (i CloudBuildResult) BuildConsoleUrl() string {
+	return "https://console.cloud.google.com/cloud-build/builds/" + i.ID + "?project=" + i.ProjectID
+}
+
 func contains(list []string, value string) bool {
 	for _, i := range list {
 		if i == value {

@@ -21,14 +21,14 @@ func createStartNotify(result cloudbuild.CloudBuildResult, conf config.Config) s
 
 	fields := []slack.SlackField{
 		slack.SlackField{
-			Title: "Status",
-			Value: result.Status,
+			Title: "Build ID",
+			Value: "[" + result.ID + "](" + result.BuildConsoleUrl() + ")",
 		},
 	}
 
 	attachement := slack.Attachment{
 		Title:     makeAttachmentTitle(result),
-		TitleLink: makeAttachmentUrl(result),
+		TitleLink: result.BuildConsoleUrl(),
 		Fields:    fields,
 	}
 
@@ -47,7 +47,7 @@ func createEndNotify(result cloudbuild.CloudBuildResult, conf config.Config) sla
 
 	attachement := slack.Attachment{
 		Title:     makeAttachmentTitle(result),
-		TitleLink: makeAttachmentUrl(result),
+		TitleLink: result.BuildConsoleUrl(),
 		Color:     resultColorOf(result),
 		Fields:    []slack.SlackField{field},
 	}
@@ -75,10 +75,6 @@ func makeResultText(result cloudbuild.CloudBuildResult) string {
 
 func makeAttachmentTitle(result cloudbuild.CloudBuildResult) string {
 	return result.RepositoryName() + " のビルド(" + result.BuildTriggerID + ")"
-}
-
-func makeAttachmentUrl(result cloudbuild.CloudBuildResult) string {
-	return "https://console.cloud.google.com/cloud-build/builds/" + result.ID + "?project=" + result.ProjectID
 }
 
 func createBaseNotify(result cloudbuild.CloudBuildResult, conf config.Config) slack.SlackNotify {
