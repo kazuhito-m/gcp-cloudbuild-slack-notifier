@@ -28,7 +28,7 @@ func createStartNotify(result cloudbuild.CloudBuildResult, conf config.Config) s
 		Fields:    fields,
 	}
 
-	slackNotify.Text = "CloudBuildの実行を開始しました。"
+	slackNotify.Text = "CloudBuildの実行を*開始*しました。"
 	slackNotify.Attachments = []slack.Attachment{attachement}
 
 	return slackNotify
@@ -70,7 +70,7 @@ func makeResultText(result cloudbuild.CloudBuildResult) string {
 	if result.Ng() {
 		resText = "失敗"
 	}
-	return "CloudBuildの実行が" + resText + "しました。"
+	return "CloudBuildの実行が*" + resText + "*しました。"
 }
 
 func makeAttachmentTitle(result cloudbuild.CloudBuildResult) string {
