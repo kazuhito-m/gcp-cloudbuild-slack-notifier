@@ -16,10 +16,10 @@ https://cloud.google.com/cloud-build/docs/configure-third-party-notifications
 
 ### 出来ること・機能
 
-- Pub/Subに通知されるCloud Buildの「開始」「終了」通知を検知してSlackに通知
+- Pub/Subに通知されるCloud Buildの「開始」「終了」を検知してSlackに通知
 - 終了通知時に「失敗」と判定された場合、「ErrorとなったであろうStep」の情報を付加
 - 環境変数にて「開始」「終了」の通知の無効化
-
+- 日本語のみ
 
 ## Usage
 
@@ -62,6 +62,7 @@ export GCSN_SLACK_CHANNEL='#general'  # Slackのチャンネル(#から記述)
 CloudBuildのサービスアカウント( [数値]@cloudservices.gserviceaccount.com )に、
 
 - サービス アカウント ユーザー(roles/iam.serviceAccountUser)
+- Cloud Functions 開発者(roles/cloudfunctions.developer)
 
 のロールが在ることを確認します。
 
