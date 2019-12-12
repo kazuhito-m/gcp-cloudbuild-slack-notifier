@@ -28,7 +28,7 @@ func createStartNotify(result cloudbuild.CloudBuildResult, conf config.Config) s
 		Fields:    fields,
 	}
 
-	slackNotify.Text = "CloudBuildの実行を*開始*しました。"
+	slackNotify.Text = "CloudBuildの実行を *開始* しました。"
 	slackNotify.Attachments = []slack.Attachment{attachement}
 
 	return slackNotify
@@ -106,10 +106,10 @@ func fieldOf(title string, value string) slack.SlackField {
 }
 
 func createErrorStepField(errorStep cloudbuild.CloudBuildStep) slack.SlackField {
-	content := "Name/ID: " + errorStep.Description()
-	content += ", Status: " + errorStep.Status
-	content += "\nEntryPoint: `" + errorStep.Entrypoint + "`"
-	content += "Args: ```" + strings.Join(errorStep.Args, "\n") + "```"
+	content := " - Name/ID: " + errorStep.Description()
+	content += "\n - Status: " + errorStep.Status
+	content += "\n - EntryPoint: `" + errorStep.Entrypoint + "`"
+	content += "\n - Args: ```" + strings.Join(errorStep.Args, "\n") + "```"
 	return slack.SlackField{
 		Title: "Error Step",
 		Value: content,
