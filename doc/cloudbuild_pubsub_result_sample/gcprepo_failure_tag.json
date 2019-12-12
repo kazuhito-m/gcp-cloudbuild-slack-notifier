@@ -1,0 +1,105 @@
+{
+	"id": "578e5f93-31aa-447c-bbb7-58911a4c3004",
+	"projectId": "uts-test-0004",
+	"status": "FAILURE",
+	"source": {
+		"repoSource": {
+			"projectId": "uts-test-0004",
+			"repoName": "hotstaff-environment",
+			"tagName": "0.0.3"
+		}
+	},
+	"steps": [
+		{
+			"name": "ubuntu",
+			"env": [
+				"TAG_NAME=0.0.3",
+				"SHORT_SHA=c40e63b"
+			],
+			"args": [
+				"./make_container_tag.sh"
+			],
+			"timing": {
+				"startTime": "2019-12-12T04:08:06.567812948Z",
+				"endTime": "2019-12-12T04:08:08.611791581Z"
+			},
+			"pullTiming": {
+				"startTime": "2019-12-12T04:08:06.567812948Z",
+				"endTime": "2019-12-12T04:08:07.807614302Z"
+			},
+			"status": "SUCCESS"
+		},
+		{
+			"name": "ubuntu",
+			"args": [
+				"-c",
+				"echo tag:$(cat ./tag)\necho latest_tag:$(cat ./latest_tag)\n"
+			],
+			"entrypoint": "/bin/bash",
+			"timing": {
+				"startTime": "2019-12-12T04:08:08.611860297Z",
+				"endTime": "2019-12-12T04:08:09.417155177Z"
+			},
+			"pullTiming": {
+				"startTime": "2019-12-12T04:08:08.611860297Z",
+				"endTime": "2019-12-12T04:08:08.691172067Z"
+			},
+			"status": "SUCCESS"
+		},
+		{
+			"name": "gcr.io/cloud-builders/gcloud",
+			"args": [
+				"-c",
+				"./increment_env_versionfile.sh"
+			],
+			"entrypoint": "/bin/bash",
+			"timing": {
+				"startTime": "2019-12-12T04:08:09.417218444Z",
+				"endTime": "2019-12-12T04:08:12.225452006Z"
+			},
+			"pullTiming": {
+				"startTime": "2019-12-12T04:08:09.417218444Z",
+				"endTime": "2019-12-12T04:08:09.499852104Z"
+			},
+			"status": "FAILURE"
+		}
+	],
+	"results": {
+		"buildStepImages": [
+			"",
+			"",
+			"sha256:89253da987b542a49d6d54bf323e911b15af0e1d9f3c8982d73eaae7b448536f"
+		]
+	},
+	"createTime": "2019-12-12T04:08:00.681035077Z",
+	"startTime": "2019-12-12T04:08:01.808522758Z",
+	"finishTime": "2019-12-12T04:08:13.724443395Z",
+	"timeout": "600s",
+	"logsBucket": "gs://681109378253.cloudbuild-logs.googleusercontent.com",
+	"sourceProvenance": {
+		"resolvedRepoSource": {
+			"projectId": "uts-test-0004",
+			"repoName": "hotstaff-environment",
+			"commitSha": "c40e63b496893611d29cb590cb63a1be0566cb87"
+		}
+	},
+	"buildTriggerId": "c699ddc4-f647-4972-b776-5af798d75ce1",
+	"options": {
+		"substitutionOption": "ALLOW_LOOSE",
+		"logging": "LEGACY"
+	},
+	"logUrl": "https://console.cloud.google.com/gcr/builds/578e5f93-31aa-447c-bbb7-58911a4c3004?project=681109378253",
+	"tags": [
+		"trigger-c699ddc4-f647-4972-b776-5af798d75ce1"
+	],
+	"timing": {
+		"BUILD": {
+			"startTime": "2019-12-12T04:08:06.567754397Z",
+			"endTime": "2019-12-12T04:08:12.290953550Z"
+		},
+		"FETCHSOURCE": {
+			"startTime": "2019-12-12T04:08:02.945357255Z",
+			"endTime": "2019-12-12T04:08:06.506925646Z"
+		}
+	}
+}

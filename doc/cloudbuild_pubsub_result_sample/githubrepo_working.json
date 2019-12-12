@@ -1,0 +1,69 @@
+{
+	"id": "d2dac834-88dc-4ef8-80bc-2448e44019fe",
+	"projectId": "uts-test-0004",
+	"status": "WORKING",
+	"source": {
+		"storageSource": {
+			"bucket": "681109378253.cloudbuild-source.googleusercontent.com",
+			"object": "329f6c9b838cd4034d0449762b30c0827633a59e-5603f61c-d906-453f-af8f-526229b964c6.tar.gz"
+		}
+	},
+	"steps": [
+		{
+			"name": "ubuntu",
+			"args": [
+				"-c",
+				"echo 'この日本語が出力されたら成功とする'\n"
+			],
+			"id": "test-steps-01",
+			"entrypoint": "/bin/bash"
+		},
+		{
+			"name": "ubuntu",
+			"args": [
+				"-c",
+				"echo 'IDが無い場合、どいういうJSONになるかテスト'\n"
+			],
+			"entrypoint": "/bin/bash"
+		},
+		{
+			"name": "ubuntu",
+			"args": [
+				"-c",
+				"ls -l /xx/yyy"
+			],
+			"id": "test-steps-02",
+			"waitFor": [
+				"test-steps-01"
+			],
+			"entrypoint": "/bin/bashj"
+		}
+	],
+	"createTime": "2019-12-11T15:27:40.299071630Z",
+	"startTime": "2019-12-11T15:27:41.216726735Z",
+	"timeout": "600s",
+	"logsBucket": "gs://681109378253.cloudbuild-logs.googleusercontent.com",
+	"sourceProvenance": {
+		"resolvedStorageSource": {
+			"bucket": "681109378253.cloudbuild-source.googleusercontent.com",
+			"object": "329f6c9b838cd4034d0449762b30c0827633a59e-5603f61c-d906-453f-af8f-526229b964c6.tar.gz",
+			"generation": "1576078060066477"
+		}
+	},
+	"buildTriggerId": "950eb50d-d192-4212-86fa-cb3c2e2c4611",
+	"options": {
+		"substitutionOption": "ALLOW_LOOSE",
+		"logging": "LEGACY"
+	},
+	"logUrl": "https://console.cloud.google.com/gcr/builds/d2dac834-88dc-4ef8-80bc-2448e44019fe?project=681109378253",
+	"substitutions": {
+		"BRANCH_NAME": "master",
+		"COMMIT_SHA": "329f6c9b838cd4034d0449762b30c0827633a59e",
+		"REPO_NAME": "gcp-cloudbuild-slack-notifier",
+		"REVISION_ID": "329f6c9b838cd4034d0449762b30c0827633a59e",
+		"SHORT_SHA": "329f6c9"
+	},
+	"tags": [
+		"trigger-950eb50d-d192-4212-86fa-cb3c2e2c4611"
+	]
+}
