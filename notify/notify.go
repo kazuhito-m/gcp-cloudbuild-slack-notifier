@@ -107,7 +107,7 @@ func fieldOf(title string, value string) slack.SlackField {
 
 func createErrorStepField(errorStep cloudbuild.CloudBuildStep) slack.SlackField {
 	content := "Name/ID: " + errorStep.Description()
-	content += "Status: `" + errorStep.Status + "`"
+	content += "\nStatus: `" + errorStep.Status + "`"
 	content += "\nEntryPoint: " + errorStep.Entrypoint
 	content += "\nArgs: ```" + strings.Join(errorStep.Args, "\n") + "```"
 	return slack.SlackField{
