@@ -37,7 +37,7 @@ func createEndNotify(result cloudbuild.CloudBuildResult, conf config.Config) sla
 	slackNotify := createBaseNotify(result, conf)
 
 	fields := []slack.SlackField{
-		fieldOf("Status", "`"+result.Status+"`"),
+		fieldOf("Status", "*"+result.Status+"*"),
 		fieldOf("Total Time", result.TotalTime()),
 	}
 	if len(result.ErrorSteps()) > 0 {
@@ -107,9 +107,9 @@ func fieldOf(title string, value string) slack.SlackField {
 
 func createErrorStepField(errorStep cloudbuild.CloudBuildStep) slack.SlackField {
 	content := "Name/ID: " + errorStep.Description()
-	content += "\nStatus: `" + errorStep.Status + "`"
-	content += "\nEntryPoint: " + errorStep.Entrypoint
-	content += "\nArgs: ```" + strings.Join(errorStep.Args, "\n") + "```"
+	content += ", Status: " + errorStep.Status
+	content += "\nEntryPoint: `" + errorStep.Entrypoint + "`"
+	content += "Args: ```" + strings.Join(errorStep.Args, "\n") + "```"
 	return slack.SlackField{
 		Title: "Error Step",
 		Value: content,

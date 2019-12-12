@@ -20,8 +20,8 @@ type CloudBuildStep struct {
 }
 
 func (i CloudBuildStep) Description() string {
-	if i.ID != "" {
-		return i.ID + "(" + i.Name + ")"
+	if i.ID == "" {
+		return i.Name
 	}
-	return i.Name
+	return i.ID + "(" + i.Name + ")"
 }
