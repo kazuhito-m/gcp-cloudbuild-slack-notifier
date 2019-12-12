@@ -70,7 +70,7 @@ func makeResultText(result cloudbuild.CloudBuildResult) string {
 	if result.Ng() {
 		resText = "失敗"
 	}
-	return "CloudBuildの実行が*" + resText + "*しました。"
+	return "CloudBuildの実行が *" + resText + "* しました。"
 }
 
 func makeAttachmentTitle(result cloudbuild.CloudBuildResult) string {
