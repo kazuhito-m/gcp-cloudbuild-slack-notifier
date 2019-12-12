@@ -93,17 +93,25 @@ func createBaseInfoFields(result cloudbuild.CloudBuildResult) []slack.SlackField
 		fieldOf("Build ID", linkOf(result.ID, result.BuildConsoleUrl())),
 		fieldOf("Trigger ID", linkOf(result.BuildTriggerID, result.TriggerConsoleUrl())),
 		fieldOf("Project ID", result.ProjectID),
-		fieldOf("Source Repository/Branch Name", makeSourceRepositoryLink(result)),
+		fieldOf("Source Repository/Branch(or Tag)Name", makeSourceRepositoryLink(result)),
 	}
 }
 
 func makeSourceRepositoryLink(result cloudbuild.CloudBuildResult) string {
+	tagOrBranchName := result.BranchName()
 	nameAndBranch := result.RepositoryName() + "/" + result.BranchName()
+
+	tagName := result.TagName()
+	if tagName != "" {
+		tagOrBranchName = tagName
+		nameAndBranch += "(Tag)"
+	}
+
 	if result.UseOutsideSouceRepository() {
 		return nameAndBranch
 	}
 	src := result.Source.RepoSource
-	url := "https://source.cloud.google.com/" + src.ProjectID + "/" + src.RepoName + "/+/" + src.BranchName + ":"
+	url := "https://source.cloud.google.com/" + src.ProjectID + "/" + src.RepoName + "/+/" + tagOrBranchName + ":"
 	return linkOf(nameAndBranch, url)
 }
 func linkOf(caption string, url string) string {

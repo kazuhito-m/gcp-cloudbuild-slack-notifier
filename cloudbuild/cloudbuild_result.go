@@ -43,6 +43,7 @@ type CloudBuildResult struct {
 			ProjectID  string `json:"projectId"`
 			RepoName   string `json:"repoName"`
 			BranchName string `json:"branchName"`
+			TagName    string `json:"tagName"`
 		} `json:"repoSource"`
 	} `json:"source"`
 	Steps   []CloudBuildStep `json:"steps"`
@@ -69,6 +70,7 @@ type CloudBuildResult struct {
 	LogURL        string `json:"logUrl"`
 	Substitutions struct {
 		BRANCHNAME string `json:"BRANCH_NAME"`
+		TAGNAME    string `json:"TAG_NAME"`
 		COMMITSHA  string `json:"COMMIT_SHA"`
 		REPONAME   string `json:"REPO_NAME"`
 		REVISIONID string `json:"REVISION_ID"`
@@ -119,6 +121,13 @@ func (i CloudBuildResult) BranchName() string {
 		return i.Substitutions.BRANCHNAME
 	}
 	return i.Source.RepoSource.BranchName
+}
+
+func (i CloudBuildResult) TagName() string {
+	if i.UseOutsideSouceRepository() {
+		return i.Substitutions.TAGNAME
+	}
+	return i.Source.RepoSource.TagName
 }
 
 func (i CloudBuildResult) BuildConsoleUrl() string {
