@@ -161,6 +161,13 @@ func (i CloudBuildResult) ErrorSteps() []CloudBuildStep {
 	return steps
 }
 
+func (i CloudBuildStep) Description() string {
+	if i.ID != "" {
+		return i.ID + "(" + i.Name + ")"
+	}
+	return i.Name
+}
+
 func contains(list []string, value string) bool {
 	for _, i := range list {
 		if i == value {
