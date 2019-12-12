@@ -28,6 +28,10 @@
 
 - https://qiita.com/shuichiro/items/db2e138dcada8ee97901
 
+## GCP AIMまわり
+
+- http://mokicks.hatenablog.com/entry/2018/09/13/014615
+
 ## Slackまわり
 
 ライブラリっぽいのはない。自力でつくるしか…。
