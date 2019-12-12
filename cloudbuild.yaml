@@ -1,24 +1,15 @@
 # サンプルのCloudBuild設定ファイル。
 # 「pub/subに書き込む」ことが目的なサンプルで、特に仕事はしていない。
 steps:
-    - name: 'ubuntu'
-      id: 'test-steps-01'
-      entrypoint: /bin/bash
+    - name: 'gcr.io/cloud-builders/gcloud'
+      id: 'deploy-cloudfunctions-this-progrum'
       args:
-        - -c
-        - |
-          echo 'この日本語が出力されたら成功とする'
-    - name: 'ubuntu'
-      entrypoint: /bin/bash
-      args:
-        - -c
-        - |
-          echo 'IDが無い場合、どいういうJSONになるかテスト'
-    - name: 'ubuntu'
-      id: 'test-steps-02'
-      waitFor: ['test-steps-01']
-      entrypoint: /bin/bashj
-      args:
-        - -c
-        - |
-          ls -l /xx/yyy
+        - functions
+        - deploy
+        - PubSubHandlerForCloudBuild
+        - --allow-unauthenticated
+        - --trigger-topic cloud-builds
+        - --runtime go111
+        - --set-env-vars
+        -   "GCSN_SLACK_URL=${_GCSN_SLACK_URL},GCSN_SLACK_CHANNEL=#hanguottest,GCSN_START_NOTIFY_DISABLE=false,GCSN_END_NOTIFY_DISABLE=false"
+      
