@@ -45,22 +45,7 @@ type CloudBuildResult struct {
 			BranchName string `json:"branchName"`
 		} `json:"repoSource"`
 	} `json:"source"`
-	Steps []struct {
-		Name       string   `json:"name"`
-		Args       []string `json:"args"`
-		ID         string   `json:"id,omitempty"`
-		Entrypoint string   `json:"entrypoint"`
-		Timing     struct {
-			StartTime time.Time `json:"startTime"`
-			EndTime   time.Time `json:"endTime"`
-		} `json:"timing"`
-		PullTiming struct {
-			StartTime time.Time `json:"startTime"`
-			EndTime   time.Time `json:"endTime"`
-		} `json:"pullTiming"`
-		Status  string   `json:"status"`
-		WaitFor []string `json:"waitFor,omitempty"`
-	} `json:"steps"`
+	Steps   []CloudBuildStep `json:"steps"`
 	Results struct {
 		BuildStepImages []string `json:"buildStepImages"`
 	} `json:"results"`
@@ -100,6 +85,23 @@ type CloudBuildResult struct {
 			EndTime   time.Time `json:"endTime"`
 		} `json:"FETCHSOURCE"`
 	} `json:"timing"`
+}
+
+type CloudBuildStep struct {
+	Name       string   `json:"name"`
+	Args       []string `json:"args"`
+	ID         string   `json:"id,omitempty"`
+	Entrypoint string   `json:"entrypoint"`
+	Timing     struct {
+		StartTime time.Time `json:"startTime"`
+		EndTime   time.Time `json:"endTime"`
+	} `json:"timing"`
+	PullTiming struct {
+		StartTime time.Time `json:"startTime"`
+		EndTime   time.Time `json:"endTime"`
+	} `json:"pullTiming"`
+	Status  string   `json:"status"`
+	WaitFor []string `json:"waitFor,omitempty"`
 }
 
 func (i CloudBuildResult) Ok() bool {
@@ -147,6 +149,16 @@ func (i CloudBuildResult) TriggerConsoleUrl() string {
 func (i CloudBuildResult) TotalTime() string {
 	duratin := i.FinishTime.Sub(i.StartTime)
 	return duratin.String()
+}
+
+func (i CloudBuildResult) ErrorSteps() []CloudBuildStep {
+	steps := []CloudBuildStep{}
+	for _, i := range i.Steps {
+		if i.Status != STATUS_SUCCESS && contains(EndStatuses(), i.Status) {
+			steps = append(steps, i)
+		}
+	}
+	return steps
 }
 
 func contains(list []string, value string) bool {
