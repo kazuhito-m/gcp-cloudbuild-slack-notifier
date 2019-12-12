@@ -10,6 +10,13 @@ type Config struct {
 	SlackChannel       string
 	StartNotifyDisable bool
 	EndNotifyDisable   bool
+	TriggerSettings    []TriggerSetting
+}
+
+type TriggerSetting struct {
+	TriggerID string
+	Disable   bool
+	AliasName string
 }
 
 func Load() (Config, bool) {
@@ -35,4 +42,24 @@ func Load() (Config, bool) {
 	}
 
 	return config, config.SlackURL != ""
+}
+
+func getTriggerSettings() []TriggerSetting {
+	// 今の所、ドコからも与えることは出来ない。
+	return []TriggerSetting{
+		TriggerSetting{
+			TriggerID: "950eb50d-d192-4212-86fa-cb3c2e2c4611",
+			Disable:   false,
+			AliasName: "テスト用のCloudBuildトリガの実行",
+		},
+	}
+}
+
+func (i Config) TriggerSettingOf(triggerID string) (TriggerSetting, bool) {
+	for _, i := range i.TriggerSettings {
+		if i.TriggerID == triggerID {
+			return i, true
+		}
+	}
+	return TriggerSetting{}, false
 }

@@ -31,6 +31,12 @@ func PubSubHandlerForCloudBuild(ctx context.Context, message pubsub.PubSubMessag
 		return nil
 	}
 
+	triggerSetting, hit := config.TriggerSettingOf(result.BuildTriggerID)
+	if hit && triggerSetting.Disable {
+		// log.Println("トリガーごとの無効設定がされていたためスキップしました。:" + message.DataText())
+		return nil
+	}
+
 	log.Println("Slack通知用CloudFunction開始。CloudBuild結果データ:" + message.DataText())
 
 	notify, ok := notify.CreateNotify(result, config)

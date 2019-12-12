@@ -23,7 +23,7 @@ func createStartNotify(result cloudbuild.CloudBuildResult, conf config.Config) s
 	fields := createBaseInfoFields(result)
 
 	attachement := slack.Attachment{
-		Title:     makeAttachmentTitle(result),
+		Title:     makeAttachmentTitle(result, conf),
 		TitleLink: result.BuildConsoleUrl(),
 		Fields:    fields,
 	}
@@ -46,7 +46,7 @@ func createEndNotify(result cloudbuild.CloudBuildResult, conf config.Config) sla
 	}
 
 	attachement := slack.Attachment{
-		Title:     makeAttachmentTitle(result),
+		Title:     makeAttachmentTitle(result, conf),
 		TitleLink: result.BuildConsoleUrl(),
 		Color:     resultColorOf(result),
 		Fields:    fields,
@@ -73,7 +73,11 @@ func makeResultText(result cloudbuild.CloudBuildResult) string {
 	return "CloudBuildの実行が *" + resText + "* しました。"
 }
 
-func makeAttachmentTitle(result cloudbuild.CloudBuildResult) string {
+func makeAttachmentTitle(result cloudbuild.CloudBuildResult, conf config.Config) string {
+	triggerSetting, hit := conf.TriggerSettingOf(result.BuildTriggerID)
+	if hit {
+		return triggerSetting.AliasName
+	}
 	return result.RepositoryName() + " のビルド"
 }
 
