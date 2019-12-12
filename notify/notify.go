@@ -90,11 +90,23 @@ func createBaseNotify(result cloudbuild.CloudBuildResult, conf config.Config) sl
 
 func createBaseInfoFields(result cloudbuild.CloudBuildResult) []slack.SlackField {
 	return []slack.SlackField{
-		fieldOf("Build ID", "<"+result.BuildConsoleUrl()+"|"+result.ID+">"),
-		fieldOf("Trigger ID", "<"+result.TriggerConsoleUrl()+"|"+result.BuildTriggerID+">"),
+		fieldOf("Build ID", linkOf(result.ID, result.BuildConsoleUrl())),
+		fieldOf("Trigger ID", linkOf(result.BuildTriggerID, result.TriggerConsoleUrl())),
 		fieldOf("Project ID", result.ProjectID),
-		fieldOf("Source Repository/Branch Name", result.RepositoryName()+"/"+result.BranchName()),
+		fieldOf("Source Repository/Branch Name", makeSourceRepositoryLink(result)+"/"+result.BranchName()),
 	}
+}
+
+func makeSourceRepositoryLink(result cloudbuild.CloudBuildResult) string {
+	if result.UseOutsideSouceRepository() {
+		return result.RepositoryName()
+	}
+	src := result.Source.RepoSource
+	url := "https://source.cloud.google.com/" + src.ProjectID + "/" + src.RepoName
+	return linkOf(src.RepoName, url)
+}
+func linkOf(caption string, url string) string {
+	return "<" + url + "|" + caption + ">"
 }
 
 func fieldOf(title string, value string) slack.SlackField {
