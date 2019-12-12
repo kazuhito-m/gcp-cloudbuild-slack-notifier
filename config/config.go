@@ -24,13 +24,13 @@ func Load() (Config, bool) {
 
 	config.StartNotifyDisable = false
 	b, err := strconv.ParseBool(os.Getenv("GCSN_START_NOTIFY_DISABLE"))
-	if err != nil {
+	if err == nil {
 		config.StartNotifyDisable = b
 	}
 
 	config.EndNotifyDisable = false
 	b, err = strconv.ParseBool(os.Getenv("GCSN_END_NOTIFY_DISABLE"))
-	if err != nil {
+	if err == nil {
 		config.EndNotifyDisable = b
 	}
 
