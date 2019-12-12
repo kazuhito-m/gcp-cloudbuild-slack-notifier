@@ -39,8 +39,8 @@ func createEndNotify(result cloudbuild.CloudBuildResult, conf config.Config) sla
 		fieldOf("Status", "`"+result.Status+"`"),
 		fieldOf("Total Time", result.TotalTime()),
 	}
-	if result.Ng() {
-		fields = append(fields, createErrorStepField(result))
+	if len(result.ErrorSteps()) > 0 {
+		fields = append(fields, createErrorStepField(result.ErrorSteps()[0]))
 	}
 	fields = append(fields, createBaseInfoFields(result)...)
 
@@ -104,8 +104,7 @@ func fieldOf(title string, value string) slack.SlackField {
 	}
 }
 
-func createErrorStepField(result cloudbuild.CloudBuildResult) slack.SlackField {
-	errorStep := result.ErrorSteps()[0]
+func createErrorStepField(errorStep cloudbuild.CloudBuildStep) slack.SlackField {
 	return slack.SlackField{
 		Title: "Errorが起こったと思しきStep",
 		Value: errorStep.Name,
