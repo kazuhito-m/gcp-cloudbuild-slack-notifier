@@ -4,6 +4,7 @@ import (
 	"kazuhito-m/gcp-cloudbuild-slack-notifier/cloudbuild"
 	"kazuhito-m/gcp-cloudbuild-slack-notifier/config"
 	"kazuhito-m/gcp-cloudbuild-slack-notifier/slack"
+	"strings"
 )
 
 func CreateNotify(result cloudbuild.CloudBuildResult, conf config.Config) (slack.SlackNotify, bool) {
@@ -105,10 +106,12 @@ func fieldOf(title string, value string) slack.SlackField {
 }
 
 func createErrorStepField(errorStep cloudbuild.CloudBuildStep) slack.SlackField {
-	content := "* Name/ID: " + errorStep.Description()
-	content += "\n* EntryPoint: " + errorStep.Entrypoint
+	content := "Name/ID: " + errorStep.Description()
+	content += "Status: `" + errorStep.Status + "`"
+	content += "\nEntryPoint: " + errorStep.Entrypoint
+	content += "\nArgs: ```" + strings.Join(errorStep.Args, "\n") + "```"
 	return slack.SlackField{
-		Title: "Errorが起こったと思しきStep",
+		Title: "Error Step",
 		Value: content,
 		Short: false,
 	}

@@ -87,23 +87,6 @@ type CloudBuildResult struct {
 	} `json:"timing"`
 }
 
-type CloudBuildStep struct {
-	Name       string   `json:"name"`
-	Args       []string `json:"args"`
-	ID         string   `json:"id,omitempty"`
-	Entrypoint string   `json:"entrypoint"`
-	Timing     struct {
-		StartTime time.Time `json:"startTime"`
-		EndTime   time.Time `json:"endTime"`
-	} `json:"timing"`
-	PullTiming struct {
-		StartTime time.Time `json:"startTime"`
-		EndTime   time.Time `json:"endTime"`
-	} `json:"pullTiming"`
-	Status  string   `json:"status"`
-	WaitFor []string `json:"waitFor,omitempty"`
-}
-
 func (i CloudBuildResult) Ok() bool {
 	return i.Status == STATUS_SUCCESS
 }
@@ -159,13 +142,6 @@ func (i CloudBuildResult) ErrorSteps() []CloudBuildStep {
 		}
 	}
 	return steps
-}
-
-func (i CloudBuildStep) Description() string {
-	if i.ID != "" {
-		return i.ID + "(" + i.Name + ")"
-	}
-	return i.Name
 }
 
 func contains(list []string, value string) bool {

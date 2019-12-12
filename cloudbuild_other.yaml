@@ -17,7 +17,7 @@ steps:
     - name: 'ubuntu'
       id: 'test-steps-02'
       waitFor: ['test-steps-01']
-      entrypoint: /bin/bashj
+      entrypoint: /bin/bash
       args:
         - -c
         - |
