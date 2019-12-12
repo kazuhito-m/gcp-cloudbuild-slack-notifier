@@ -41,10 +41,12 @@ func Load() (Config, bool) {
 		config.EndNotifyDisable = b
 	}
 
+	config.TriggerSettings = createTriggerSettings()
+
 	return config, config.SlackURL != ""
 }
 
-func getTriggerSettings() []TriggerSetting {
+func createTriggerSettings() []TriggerSetting {
 	// 今の所、ドコからも与えることは出来ない。
 	return []TriggerSetting{
 		TriggerSetting{
