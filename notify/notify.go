@@ -90,10 +90,10 @@ func createBaseNotify(result cloudbuild.CloudBuildResult, conf config.Config) sl
 
 func createBaseInfoFields(result cloudbuild.CloudBuildResult) []slack.SlackField {
 	return []slack.SlackField{
-		fieldOf("Build ID", linkOf(result.ID, result.BuildConsoleUrl())),
-		fieldOf("Trigger ID", linkOf(result.BuildTriggerID, result.TriggerConsoleUrl())),
 		fieldOf("Project ID", result.ProjectID),
 		fieldOf("Source Repository/Branch(or Tag)Name", makeSourceRepositoryLink(result)),
+		fieldOf("Build ID", linkOf(result.ID, result.BuildConsoleUrl())),
+		fieldOf("Trigger ID", linkOf(result.BuildTriggerID, result.TriggerConsoleUrl())),
 	}
 }
 
