@@ -99,11 +99,14 @@ func createBaseInfoFields(result cloudbuild.CloudBuildResult) []slack.SlackField
 
 func makeSourceRepositoryLink(result cloudbuild.CloudBuildResult) string {
 	tagOrBranchName := result.BranchName()
-	nameAndBranch := result.RepositoryName() + "/" + result.BranchName()
 
 	tagName := result.TagName()
 	if tagName != "" {
 		tagOrBranchName = tagName
+	}
+
+	nameAndBranch := result.RepositoryName() + "/" + tagOrBranchName
+	if tagName != "" {
 		nameAndBranch += "(Tag)"
 	}
 
