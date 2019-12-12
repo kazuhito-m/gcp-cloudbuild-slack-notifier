@@ -1,5 +1,3 @@
-# サンプルのCloudBuild設定ファイル。
-# 「pub/subに書き込む」ことが目的なサンプルで、特に仕事はしていない。
 steps:
     - name: 'gcr.io/cloud-builders/gcloud'
       id: 'deploy-cloudfunctions-this-progrum'
@@ -8,8 +6,9 @@ steps:
         - deploy
         - PubSubHandlerForCloudBuild
         - --allow-unauthenticated
-        - --trigger-topic cloud-builds
+        - --trigger-topic 
+        -   cloud-builds
         - --runtime go111
         - --set-env-vars
-        -   "GCSN_SLACK_URL=${_GCSN_SLACK_URL},GCSN_SLACK_CHANNEL=#hanguottest,GCSN_START_NOTIFY_DISABLE=false,GCSN_END_NOTIFY_DISABLE=false"
+        -   "GCSN_SLACK_URL=${_GCSN_SLACK_URL},GCSN_SLACK_CHANNEL=${_GCSN_SLACK_CHANNEL},GCSN_START_NOTIFY_DISABLE=false,GCSN_END_NOTIFY_DISABLE=false"
       
