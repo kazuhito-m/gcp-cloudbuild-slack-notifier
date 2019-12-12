@@ -32,11 +32,25 @@
 
 - http://mokicks.hatenablog.com/entry/2018/09/13/014615
 
+## GCP と GO で Cloud Functions まわり
+
+- https://qiita.com/ik-fib/items/b4a502d173a22b3947a0
+- https://qiita.com/Morix1500/items/09a660c77dcf1e7a064b
+
 ## Slackまわり
 
 ライブラリっぽいのはない。自力でつくるしか…。
 
 - https://techte.co/2018/01/28/lambda-go-slack/
+- https://qiita.com/ik-fib/items/b4a502d173a22b3947a0
+  - JSON Bodyの書式
+- https://api.slack.com/reference/surfaces/formatting
+  - "mrkdwn" とかいう謎仕様
+- https://ashitani.jp/golangtips/tips_time.html#time_Format
+  - Block Kitまわり
+- https://qiita.com/kshibata101/items/0e13c420080a993c5d16
+  - WebHookにはニ種類在る話、今回のプログラムは「古い方」が対象
+  
 
 ## 環境変数の取得方法
 
@@ -54,7 +68,17 @@
 ## 言語自体
 
 - https://qiita.com/ruiu/items/61236f09b3469a679eb9
-    - 三項演算子はない
+  - 三項演算子はない
+- https://www.tweeeety.blog/entry/2017/08/17/021040
+  - Errorオブジェクトだったり、処理方法だったり
+- https://qiita.com/quicksort/items/aae064ddfb7a572cd3b5
+  - 文字列連結＆置換(stringsパッケージ)
+- https://ashitani.jp/golangtips/tips_time.html#time_Format
+  - 日付と時刻
+- https://qiita.com/hkurokawa/items/a4d402d3182dff387674
+  - 定数の話、配列の定数やenumぽいのはできないみたい
+- https://qiita.com/sh-tatsuno/items/e536f80a712f1a91129c
+  - 正規表現
 
 ## その他
 
