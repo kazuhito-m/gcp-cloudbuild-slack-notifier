@@ -5,6 +5,7 @@ steps:
         - functions
         - deploy
         - PubSubHandlerForCloudBuild
+        - --allow-unauthenticated
         - --trigger-topic 
         -   cloud-builds
         - --runtime
