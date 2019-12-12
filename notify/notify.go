@@ -28,7 +28,7 @@ func createStartNotify(result cloudbuild.CloudBuildResult, conf config.Config) s
 		Fields:    fields,
 	}
 
-	slackNotify.Text = "CloudBuildの実行を *開始* しました。"
+	slackNotify.Text = "CloudBuildの実行を *開始* しました。" + makeCustomStartMessage(result, conf)
 	slackNotify.Attachments = []slack.Attachment{attachement}
 
 	return slackNotify
@@ -70,14 +70,26 @@ func makeResultText(result cloudbuild.CloudBuildResult, conf config.Config) stri
 	if result.Ng() {
 		resText = "失敗"
 	}
-	return "CloudBuildの実行が *" + resText + "* しました。" + makeCustomDescription(result, conf)
+	return "CloudBuildの実行が *" + resText + "* しました。" + makeCustomEndMessage(result, conf)
 }
 
-func makeCustomDescription(result cloudbuild.CloudBuildResult, conf config.Config) string {
+func makeCustomStartMessage(result cloudbuild.CloudBuildResult, conf config.Config) string {
 	customMessage := ""
 	triggerSetting, hit := conf.TriggerSettingOf(result.BuildTriggerID)
 	if hit {
-		customMessage = triggerSetting.CustumDescription
+		customMessage = triggerSetting.CustumStartMessage
+	}
+	if customMessage == "" {
+		return ""
+	}
+	return "\n\n" + customMessage
+}
+
+func makeCustomEndMessage(result cloudbuild.CloudBuildResult, conf config.Config) string {
+	customMessage := ""
+	triggerSetting, hit := conf.TriggerSettingOf(result.BuildTriggerID)
+	if hit {
+		customMessage = triggerSetting.CustumEndMessage
 	}
 	if customMessage == "" {
 		return ""
