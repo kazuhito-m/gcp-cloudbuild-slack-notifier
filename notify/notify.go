@@ -103,7 +103,7 @@ func makeSourceRepositoryLink(result cloudbuild.CloudBuildResult) string {
 		return nameAndBranch
 	}
 	src := result.Source.RepoSource
-	url := "https://source.cloud.google.com/" + src.ProjectID + "/" + src.RepoName + "/+/" + src.BranchName
+	url := "https://source.cloud.google.com/" + src.ProjectID + "/" + src.RepoName + "/+/" + src.BranchName + ":"
 	return linkOf(nameAndBranch, url)
 }
 func linkOf(caption string, url string) string {
