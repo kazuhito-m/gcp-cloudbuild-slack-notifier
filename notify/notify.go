@@ -40,10 +40,10 @@ func createEndNotify(result cloudbuild.CloudBuildResult, conf config.Config) sla
 		fieldOf("Status", "*"+result.Status+"*"),
 		fieldOf("Total Time", result.TotalTime()),
 	}
+	fields = append(fields, createBaseInfoFields(result)...)
 	if len(result.ErrorSteps()) > 0 {
 		fields = append(fields, createErrorStepField(result.ErrorSteps()[0]))
 	}
-	fields = append(fields, createBaseInfoFields(result)...)
 
 	attachement := slack.Attachment{
 		Title:     makeAttachmentTitle(result),
@@ -99,7 +99,6 @@ func createBaseInfoFields(result cloudbuild.CloudBuildResult) []slack.SlackField
 
 func makeSourceRepositoryLink(result cloudbuild.CloudBuildResult) string {
 	tagOrBranchName := result.BranchName()
-
 	tagName := result.TagName()
 	if tagName != "" {
 		tagOrBranchName = tagName
