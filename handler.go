@@ -26,6 +26,11 @@ func PubSubHandlerForCloudBuild(ctx context.Context, message pubsub.PubSubMessag
 		return nil
 	}
 
+	if (result.IsStart() && config.StartNotifyDisable) || (result.IsEnd() && config.EndNotifyDisable) {
+		// log.Println("環境変数により無効設定がされていたためスキップしました。:" + message.DataText())
+		return nil
+	}
+
 	log.Println("Slack通知用CloudFunction開始。CloudBuild結果データ:" + message.DataText())
 
 	notify, ok := notify.CreateNotify(result, config)
