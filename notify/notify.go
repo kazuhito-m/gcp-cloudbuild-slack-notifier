@@ -52,7 +52,7 @@ func createEndNotify(result cloudbuild.CloudBuildResult, conf config.Config) sla
 		Fields:    fields,
 	}
 
-	slackNotify.Text = makeResultText(result)
+	slackNotify.Text = makeResultText(result, conf)
 	slackNotify.Attachments = []slack.Attachment{attachement}
 
 	return slackNotify
@@ -65,12 +65,24 @@ func resultColorOf(result cloudbuild.CloudBuildResult) string {
 	return "danger"
 }
 
-func makeResultText(result cloudbuild.CloudBuildResult) string {
+func makeResultText(result cloudbuild.CloudBuildResult, conf config.Config) string {
 	resText := "成功"
 	if result.Ng() {
 		resText = "失敗"
 	}
-	return "CloudBuildの実行が *" + resText + "* しました。"
+	return "CloudBuildの実行が *" + resText + "* しました。" + makeCustomDescription(result, conf)
+}
+
+func makeCustomDescription(result cloudbuild.CloudBuildResult, conf config.Config) string {
+	customMessage := ""
+	triggerSetting, hit := conf.TriggerSettingOf(result.BuildTriggerID)
+	if hit {
+		customMessage = triggerSetting.CustumDescription
+	}
+	if customMessage == "" {
+		return ""
+	}
+	return "\n\n" + customMessage
 }
 
 func makeAttachmentTitle(result cloudbuild.CloudBuildResult, conf config.Config) string {
@@ -86,10 +98,22 @@ func createBaseNotify(result cloudbuild.CloudBuildResult, conf config.Config) sl
 
 	slackNotify.Username = "GCP CloudBuild Notification"
 	slackNotify.IconURL = "https://developers.cyberagent.co.jp/blog/wp-content/uploads/2018/08/Container-Builder.png"
-	slackNotify.Channel = conf.SlackChannel
+	slackNotify.Channel = makeChannelName(result, conf)
 	slackNotify.Mrkdwn = true
 
 	return slackNotify
+}
+
+func makeChannelName(result cloudbuild.CloudBuildResult, conf config.Config) string {
+	triggerSetting, hit := conf.TriggerSettingOf(result.BuildTriggerID)
+	customSlackChannel := ""
+	if hit {
+		customSlackChannel = triggerSetting.SlackChannel
+	}
+	if customSlackChannel != "" {
+		return customSlackChannel
+	}
+	return conf.SlackChannel
 }
 
 func createBaseInfoFields(result cloudbuild.CloudBuildResult) []slack.SlackField {

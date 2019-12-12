@@ -14,9 +14,11 @@ type Config struct {
 }
 
 type TriggerSetting struct {
-	TriggerID string
-	Disable   bool
-	AliasName string
+	TriggerID         string
+	Disable           bool
+	AliasName         string
+	SlackChannel      string
+	CustumDescription string
 }
 
 func Load() (Config, bool) {

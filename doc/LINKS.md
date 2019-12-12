@@ -42,7 +42,6 @@
 ライブラリっぽいのはない。自力でつくるしか…。
 
 - https://techte.co/2018/01/28/lambda-go-slack/
-- https://qiita.com/ik-fib/items/b4a502d173a22b3947a0
   - JSON Bodyの書式
 - https://api.slack.com/reference/surfaces/formatting
   - "mrkdwn" とかいう謎仕様
