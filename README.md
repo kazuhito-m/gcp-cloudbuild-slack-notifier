@@ -35,10 +35,6 @@ https://cloud.google.com/cloud-build/docs/configure-third-party-notifications
 | GCSN_START_NOTIFY_DISABLE | [ ] | 開始時通知を無効化する。True:無効。                           |
 | GCSN_END_NOTIFY_DISABLE | [ ] | 終了時通知を無効化する。True:無効。                           |
 
-
-
-
-
 ### Requirement
 
 - GCPにプロジェクトが作成済みであること
@@ -47,10 +43,6 @@ https://cloud.google.com/cloud-build/docs/configure-third-party-notifications
 - ローカルから `gcloud` コマンドが発行できること
 - Slackに「Incoming Webhook」が登録されていること
     - WebhookのURLが解っていること
-
-#### 開発環境(言語)のバージョン
-
-対象の `golang` のバージョンは、 CIのファイルである `.circleci/config.yml`, `.github/workflows/ci.yml` を参照。
 
 ### gcloudコマンド(のスクリプト)でCloud Functionsに登録する場合
 
@@ -80,3 +72,7 @@ Cloud Buildの管理画面からTriggerを登録します。
 - 本家(このGitHubのリポジトリ)の更新に巻き込まれたくない場合は、Forkするか、「GCP Cloud Source Repositories」にソースをコピーするなどして下さい
 
 初回ビルド起動で、Cloud Functionsに `PubSubHandlerForCloudBuild` というFunctionが作成されれば成功です。
+
+## Prerequisite
+
+開発に使う `golang` のバージョンは、 CIのファイルである `.circleci/config.yml`, `.github/workflows/ci.yml` を参照。
