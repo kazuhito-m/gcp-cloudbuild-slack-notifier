@@ -48,6 +48,10 @@ https://cloud.google.com/cloud-build/docs/configure-third-party-notifications
 - Slackに「Incoming Webhook」が登録されていること
     - WebhookのURLが解っていること
 
+#### 開発環境(言語)のバージョン
+
+対象の `golang` のバージョンは、 CIのファイルである `.circleci/config.yml`, `.github/workflows/ci.yml` を参照。
+
 ### gcloudコマンド(のスクリプト)でCloud Functionsに登録する場合
 
 前述の前提を満たした状態で、以下のコマンドをbashコンソールから実行します。
