@@ -1,4 +1,4 @@
-package pubsub
+package pubsub_test
 
 import (
 	"kazuhito-m/gcp-cloudbuild-slack-notifier/pubsub"

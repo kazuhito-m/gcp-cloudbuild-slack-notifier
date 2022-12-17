@@ -1,8 +1,7 @@
-package cloudbuild
+package cloudbuild_test
 
 import (
 	"encoding/json"
-	"io/ioutil"
 	"kazuhito-m/gcp-cloudbuild-slack-notifier/cloudbuild"
 	"os"
 	"testing"
@@ -39,9 +38,4 @@ func loadTestCloudBuildResult(fileName string) cloudbuild.CloudBuildResult {
 	var decode_data cloudbuild.CloudBuildResult
 	json.Unmarshal(bytes, &decode_data)
 	return decode_data
-}
-
-func loadTestFile(filePath string) []byte {
-	contents, _ := ioutil.ReadFile(filePath)
-	return contents
 }
