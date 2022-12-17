@@ -1,7 +1,3 @@
 #!/bin/bash
-
-for i in $(find . -name '*.go') ; do
-  go fmt ${i}
-done
-
+go fmt ./...
 go test -cover -v ./...
