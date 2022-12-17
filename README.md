@@ -2,6 +2,9 @@
 GCP Cloud Build Notifier for Slack
 ==================================
 
+[![ci](https://github.com/kazuhito-m/gcp-cloudbuild-slack-notifier/actions/workflows/ci.yml/badge.svg)](https://github.com/kazuhito-m/gcp-cloudbuild-slack-notifier/actions/workflows/ci.yml)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/kazuhito-m/gcp-cloudbuild-slack-notifier/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/kazuhito-m/gcp-cloudbuild-slack-notifier/tree/main)
+
 GCP にて Cloud Build が実行された際に Slack に通知する、 Cloud Functions 用プログラム。
 
 ![Slack通知結果のスクリーンショット](doc/screenshot.png)
