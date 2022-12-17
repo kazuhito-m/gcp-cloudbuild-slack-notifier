@@ -2,6 +2,9 @@
 GCP Cloud Build Notifier for Slack
 ==================================
 
+[![ci](https://github.com/kazuhito-m/gcp-cloudbuild-slack-notifier/actions/workflows/ci.yml/badge.svg)](https://github.com/kazuhito-m/gcp-cloudbuild-slack-notifier/actions/workflows/ci.yml)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/kazuhito-m/gcp-cloudbuild-slack-notifier/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/kazuhito-m/gcp-cloudbuild-slack-notifier/tree/main)
+
 GCP にて Cloud Build が実行された際に Slack に通知する、 Cloud Functions 用プログラム。
 
 ![Slack通知結果のスクリーンショット](doc/screenshot.png)
@@ -31,10 +34,6 @@ https://cloud.google.com/cloud-build/docs/configure-third-party-notifications
 | GCSN_SLACK_CHANNEL        | [ ] | 通知するSlackのチャンネル。`#` 付きで指定する。未指定時には `#general`。 |
 | GCSN_START_NOTIFY_DISABLE | [ ] | 開始時通知を無効化する。True:無効。                           |
 | GCSN_END_NOTIFY_DISABLE | [ ] | 終了時通知を無効化する。True:無効。                           |
-
-
-
-
 
 ### Requirement
 
@@ -73,3 +72,7 @@ Cloud Buildの管理画面からTriggerを登録します。
 - 本家(このGitHubのリポジトリ)の更新に巻き込まれたくない場合は、Forkするか、「GCP Cloud Source Repositories」にソースをコピーするなどして下さい
 
 初回ビルド起動で、Cloud Functionsに `PubSubHandlerForCloudBuild` というFunctionが作成されれば成功です。
+
+## Prerequisite
+
+開発に使う `golang` のバージョンは、 CIのファイルである `.circleci/config.yml`, `.github/workflows/ci.yml` を参照。
