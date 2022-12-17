@@ -1,4 +1,4 @@
-package cloudbuild
+package cloudbuild_test
 
 import (
 	"io/ioutil"
